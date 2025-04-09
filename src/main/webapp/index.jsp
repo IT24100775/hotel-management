@@ -28,7 +28,7 @@
 <body>
 
 <div class="navbar">
-  <a href="#">Home</a>
+  <a href="#">Dashboard</a>
   <a href="#">About</a>
   <a href="pages/login.jsp">Login</a>
   <a href="pages/signup.jsp">Signup</a>
