@@ -7,17 +7,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "signup-servlet", value = "/signup-servlet")
-public class SignupServlet extends HttpServlet {
+@WebServlet(name = "updateprofile-servlet", value = "/updateprofile-servlet")
+public class UpdateProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String fullname = request.getParameter("fullname");
-        String username = request.getParameter("username");
         String password = request.getParameter("password");
-        request.getSession().setAttribute("username", username);
-
-        // Save user (you can store in DB)
-        System.out.println("New user credentials: " + fullname + ", " + username+ ", " + password);
-        response.sendRedirect("../hotel_management_war_exploded/index.jsp");
     }
 }
 

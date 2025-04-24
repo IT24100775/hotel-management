@@ -2,60 +2,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Home - My App</title>
-  <style>
-      body { font-family: 'Arial', sans-serif; margin: 0; padding: 0;}
-
-    .navbar {
-      background-color: #006994;
-      overflow: hidden;
-    }
-    .navbar a {
-      float: left;
-      color: white;
-      text-align: center;
-      padding: 14px 20px;
-      text-decoration: none;
-    }
-    .navbar a:hover {
-      background-color: #ddd;
-      color: black;
-    }
-    .content1 {
-      padding: 30px;
-    }
-.content2{
-    padding-right:700px;
-    padding-left: 100px;
-    font-family:'Carla Sans',sans-serif;
-    color: #006994;
-}
-.content3{
-    padding-right:700px;
-    padding-left: 100px;
-    padding-bottom: 50px;
-    font-family:'Carla Sans',sans-serif;
-    color: black;
-
-}
-      .image-right {
-          float: right;
-          margin-left: 20px;
-          width: 450px;
-          height: 400px;
-          margin-top: -450px;
-          margin-right: 100px;
-      }
-    footer {
-      padding: 20px;
-      background-color: #006994;
-      text-align: center;
-      line-height:1.8;
-        color: white;
-    }
-
-
-  </style>
+  <title>Home - The Seabreeze Hotel</title>
+    <link rel="stylesheet" href="CSS/index.css">
 </head>
 <body>
 
@@ -66,7 +14,7 @@
     justify-content: center;
 text-decoration-color: white;">
       <img src="images/hotellogo.png" height="110px" width="140px">
-      <a href="#">Home</a>
+      <a href="index.jsp">Home</a>
       <a href="#">About Us</a>
       <a href="#">Rooms</a>
 
@@ -79,7 +27,14 @@ text-decoration-color: white;">
       <%
       } else {
       %>
-      <a>Hello: <%= username %></a>
+      <div class="dropdown">
+          <div class="dropbutton">Hello, <%= username %> ▾</div>
+          <div class="dropdown-content">
+              <a href="updateprofile-servlet">Update Profile</a>
+              <a href="logout-servlet">Logout</a>
+          </div>
+          </div>
+      </div>
       <%
           }
       %>
@@ -100,19 +55,15 @@ text-decoration-color: white;">
 <img src="images/White%20and%20Gold%20Minimalist%20Feminine%20Hotel%20Logo%20(1).png" class="image-right">
 <footer>
   <p><b>Explore</b><br>
-Home | About Us | Rooms | Login | Sign Up
+      <a href="index.jsp" style="text-decoration: none; color: white;">Home</a> | <a href="index.jsp" style="text-decoration: none;color: white;">About Us</a> | <a href="#" style="text-decoration: none;color: white;">Rooms</a> | <a href="pages/login.jsp" style="text-decoration: none;color: white;">Login</a> | <a href="pages/signup.jsp" style="text-decoration: none;color: white;">Sign Up</a>
   <br><br><b>Get in Touch</b><br>
    Hotel Contact Information<br>
-   info@nameofhotel.com<br>
+      <a href="mailto:info@seabreeze.com"  style="text-decoration: none; color: white;">info@seabreeze.com</a><br>
    +94 113 393 830<br><br>
       <b>Follow Us</b><br>
     <img src="images/socialmedia.png" height="50"  width="200" align="center"><br><br>
-   ©2025 nameofhotel, Inc. All rights reserved</p>
+   ©2025 The Seabreeze Hotel, Inc. All rights reserved</p>
 </footer>
-
-
-
-
 
 </body>
 </html>
