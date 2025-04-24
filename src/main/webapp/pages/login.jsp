@@ -3,34 +3,15 @@
 <html>
 <head>
     <title>Login</title>
-    <style>
-        body {
-            background-image: url("../images/seabreeze.png");
-        }
-        form {
-            background: white;
-            border-radius: 10px;
-            margin-right: 200px;
-            margin-left:800px;
-            margin-top: 200px;
-            padding-left:50px ;
-        }
-        h2{
-            font-family: 'Arial', sans-serif;
-            font-size: x-large;
-            color: white;
-            text-align: right;
-            margin-right: 500px;
-            margin-left: 500px;
-        }
-    </style>
+    <link rel="stylesheet" href="../CSS/login.css">
 </head>
 <body>
-<h2>Login</h2>
 <form action="../login-servlet" method="post"><br>
-    Username: <input type="text" name="username" required /><br/><br/>
-    Password: <input type="password" name="password" required /><br/><br/>
-    <input type="submit" value="Login"/><br/><br/>
+    <img src="../images/logoblue.png" alt="logo" style="display: block; margin-right: 200px; margin-left: 75px;" width=150px height="auto"><br>
+    <h2>Login</h2>
+     <input type="text" name="username" placeholder="Username" required /><br/><br/>
+     <input type="password" name="password" placeholder="Password" required /><br/><br/>
+     <input type="submit" value="Login"/><br/><br/>
 </form>
 </body>
 </html>
