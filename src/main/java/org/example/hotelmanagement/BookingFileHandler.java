@@ -104,4 +104,8 @@ public class BookingFileHandler {
             }
         }
     }
+
+    public static Booking getBookingById(String bookingId) {
+        return null;
+    }
 }
