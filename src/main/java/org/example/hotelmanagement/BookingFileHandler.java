@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookingFileHandling {
+public class BookingFileHandler {
     private static final String FILE_PATH = "resources/bookings.txt";
     private static final Object fileLock = new Object();
 
