@@ -70,7 +70,7 @@ public class BookingFileHandler {
         }
     }
 
-    public static void cancelBooking(String bookingId) throws IOException {
+    public static boolean cancelBooking(String bookingId) throws IOException {
         synchronized (fileLock) {
             List<Booking> bookings = getAllBookings();
             boolean updated = false;
@@ -84,7 +84,10 @@ public class BookingFileHandler {
 
             if (updated) {
                 writeAllBookings(bookings);
+
+                return true;
             }
+           return false;
         }
     }
 
