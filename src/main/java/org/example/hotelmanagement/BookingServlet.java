@@ -45,14 +45,14 @@ public class BookingServlet extends HttpServlet {
                 String bookingId = request.getParameter("bookingId");
                 if (bookingId != null && !bookingId.isEmpty()) {
                     BookingFileHandler.cancelBooking(bookingId);
-                    response.sendRedirect("dashboard.jsp?message=Booking+cancelled");
+                    response.sendRedirect("cancel-confirmation.jsp?error=Cancellation+failed");
+
                 } else {
                     response.sendRedirect("dashboard.jsp?error=Invalid+booking+ID");
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("error.jsp?message=Booking+operation+failed");
+            response.sendRedirect("dashboard.jsp?error=Invalid+booking+ID");
         }
     }
 
