@@ -1,30 +1,57 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Nuha
-  Date: 4/17/2025
-  Time: 7:45 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="true" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>Update Profile</title>
 </head>
 <body>
-<h2>Personal Details</h2>
-<h3>Update your info</h3>>
-<h2>Update Your Profile</h2>
-<form action="update-profile-servlet" method="post">
-    <label>Full Name:</label><br>
-    <%
-        String fullname = (String) session.getAttribute("fullname");
-    %>
-    <input type="text" name="fullname" value="<%= fullname %>" required><br><br>
+<%
+    if (session == null || session.getAttribute("username") == null) {
+        System.out.println("Session invalid or no username, redirecting to login.jsp");
+        response.sendRedirect("login.jsp");
+        return;
+    }
 
-    <label>New Password (leave blank to keep current):</label><br>
-    <input type="password" name="password"><br><br>
+    String username = (String) session.getAttribute("username");
+    String fullname = (String) session.getAttribute("fullname");
+    String email = (String) session.getAttribute("email");
+    String phone = (String) session.getAttribute("phone");
 
-    <input type="submit" value="Update Profile">
+    if (fullname == null) fullname = "";
+    if (email == null) email = "";
+    if (phone == null) phone = "";
+%>
+
+<h2>Update Profile</h2>
+
+<!-- Display success message -->
+<% if (request.getParameter("success") != null && request.getParameter("success").equals("updated")) { %>
+<p style="color: green;">Profile successfully updated!</p>
+<% } %>
+
+<!-- Display error message -->
+<% if (request.getParameter("error") != null) { %>
+<p style="color: red;">Error: <%= request.getParameter("error") %></p>
+<% } %>
+
+<form action="${pageContext.request.contextPath}/updateprofile-servlet" method="post">
+    <label>Username (cannot be changed):</label><br/>
+    <input type="text" name="username" value="<%= username %>" readonly /><br/><br/>
+
+    <label>Full Name:</label><br/>
+    <input type="text" name="fullname" value="<%= fullname %>" required /><br/><br/>
+
+    <label>New Password (leave blank to keep current):</label><br/>
+    <input type="password" name="password" placeholder="Enter new password" /><br/><br/>
+
+    <label>Email:</label><br/>
+    <input type="email" name="email" value="<%= email %>" placeholder="Enter email" /><br/><br/>
+
+    <label>Phone:</label><br/>
+    <input type="text" name="phone" value="<%= phone %>" placeholder="Enter phone number" /><br/><br/>
+
+    <input type="submit" value="Save Changes" />
 </form>
 
 </body>

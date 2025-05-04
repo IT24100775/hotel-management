@@ -1,63 +1,75 @@
-body { font-family: 'Arial', sans-serif;
+body {
+    font-family: 'Arial', sans-serif;
     margin: 0;
-    padding: 0;}
+    padding: 120px 0 0;
+}
 
 .navbar {
     background-color: #006994;
-    overflow: hidden;
     display: flex;
-    justify-content: space-between;
-
+    align-items: center;
+    padding: 15px 30px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10001;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow: visible;
 }
-.navbar a {
-    float: left;
+
+.nav-left img {
+    height: 30px;  /* Adjust this value to make the logo smaller */
+    width: auto;
+}
+
+.nav-center {
+    display: flex;
+    gap: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.nav-center a {
     color: white;
-    text-align: center;
-    padding: 14px 20px;
     text-decoration: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    transition: background-color 0.3s;
 }
-.navbar a:hover {
-    color: white;
-}
-.content1 {
-    padding: 30px;
-}
-.content2{
-    padding-right:700px;
-    padding-left: 100px;
-    font-family:'Carla Sans',sans-serif;
-    color: #006994;
-}
-.content3{
-    padding-right:700px;
-    padding-left: 100px;
-    padding-bottom: 50px;
-    font-family:'Carla Sans',sans-serif;
-    color: black;
 
-}
-.image-right {
-    float: right;
-    margin-left: 20px;
-    width: 450px;
-    height: 400px;
-    margin-top: -450px;
-    margin-right: 100px;
-}
-footer {
-    padding: 20px;
-    background-color: #006994;
-    text-align: center;
-    line-height:1.8;
+.nav-center a:hover {
     color: white;
+    text-decoration: underline;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.nav-right {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-right a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.nav-right a:hover {
+    color: white;
+    text-decoration: underline;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .dropdown {
     position: relative;
     display: inline-block;
-    float: right;
-    margin-left: auto;
-    padding: 14px 20px;
+    padding: 10px 0;
+    overflow: visible;  /* Ensure the dropdown is not clipped */
 }
 
 .dropbutton {
@@ -67,6 +79,11 @@ footer {
     font-size: 16px;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dropbutton:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .dropdown-content {
@@ -74,12 +91,15 @@ footer {
     position: absolute;
     background-color: white;
     min-width: 120px;
-    box-shadow: 0px 8px 16px rgba(221,221,221);
+    box-shadow: 0px 8px 16px rgba(221, 221, 221, 0.5);
     z-index: 9999;
+    margin-top: 0;
+    top: 100%;  /* Position it just below the button */
+    left: 0;    /* Align to the left of the dropdown */
 }
 
 .dropdown-content a {
-    color: transparent;
+    color: #333 !important;
     padding: 10px 12px;
     text-decoration: none;
     display: block;
@@ -89,10 +109,61 @@ footer {
 }
 
 .dropdown-content a:hover {
-    background-color: white;
+    background-color: #e0e0e0;
+    color: #006994 !important;
 }
 
 .dropdown:hover .dropdown-content {
-    display: block;
+    display: block;  /* Display the dropdown when hovering over .dropdown */
+}
+
+.content1 {
+    padding:20px;
+}
+
+.content2 {
+    padding-top:500px;
+    padding-right: 700px;
+    padding-left: 100px;
+    font-family: 'Carla Sans', sans-serif;
+    color: #006994;
+}
+
+.content3 {
+    padding-right: 700px;
+    padding-left: 100px;
+    padding-bottom: 50px;
+    font-family: 'Carla Sans', sans-serif;
+    color: black;
+}
+
+.image-right {
+    float: right;
+    margin-left: 20px;
+    width: 450px;
+    height: 400px;
+    margin-top: -450px;
+    margin-right: 100px;
+}
+
+footer {
+    padding: 20px;
+    background-color: #006994;
+    text-align: center;
+    line-height: 1.8;
+    color: white;
+}
+
+ html {
+     scroll-behavior: smooth;
+ }
+
+#map {
+    height: 400px;
+    width: 95%;
+    margin-left: 30px;
+    margin-top:5px;
+    margin-bottom:80px;
+    margin-right:30px;
 }
 
