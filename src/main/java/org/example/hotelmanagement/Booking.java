@@ -80,4 +80,9 @@ public class Booking implements Serializable {
     public Date getCheckOutDate() { return checkOutDate; }
     public int getGuests() { return guests; }
     public String getStatus() { return status; }
+
+    public Object getGuestEmail() {
+
+        return null;
+    }
 }
