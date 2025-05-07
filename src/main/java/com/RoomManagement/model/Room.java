@@ -1,6 +1,7 @@
-package model;
+package com.RoomManagement.model;
 
-    public class Room {
+public class Room {
+
         private String roomID;
         private String type;
         private String availability;
@@ -36,4 +37,5 @@ package model;
             this.availability = availability;
         }
     }
+
 
