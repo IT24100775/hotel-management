@@ -37,7 +37,7 @@ public class SignupServlet extends HttpServlet {
             System.out.println("Missing input: " + (fullname == null ? "fullname " : "")
                     + (username == null ? "username " : "")
                     + (password == null ? "password " : ""));
-            response.sendRedirect("signup.jsp?error=missingfields");
+            response.sendRedirect("/pages/signup.jsp?error=missingfields");
             return;
         }
 
@@ -46,7 +46,7 @@ public class SignupServlet extends HttpServlet {
         password = password.trim();
 
         if (fullname.isEmpty() || username.isEmpty() || password.isEmpty()) {
-            response.sendRedirect("signup.jsp?error=emptyfields");
+            response.sendRedirect("/pages/signup.jsp?error=emptyfields");
             return;
         }
 
@@ -68,7 +68,7 @@ public class SignupServlet extends HttpServlet {
         }
 
         if (userExists) {
-            response.sendRedirect("signup.jsp?error=userexists");
+            response.sendRedirect("./pages/signup.jsp?error=userexists");
             return;
         }
 
@@ -90,6 +90,6 @@ public class SignupServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect(request.getContextPath() + "/signup.jsp");
+        response.sendRedirect(request.getContextPath() + "/pages/signup.jsp");
     }
 }

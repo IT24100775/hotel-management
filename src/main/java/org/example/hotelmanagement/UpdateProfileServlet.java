@@ -80,7 +80,7 @@ public class UpdateProfileServlet extends HttpServlet {
 
                     updated = true;
                 } else {
-                    lines.add(line); // Keep other users' data unchanged
+                    lines.add(line);
                 }
             }
         }
@@ -97,6 +97,5 @@ public class UpdateProfileServlet extends HttpServlet {
             }
         }
 
-        // ✅ Redirect to view profile page with success message
         response.sendRedirect("pages/viewprofile.jsp?success=updated");
     }}

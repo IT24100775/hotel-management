@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
 
         if (username == null || password == null || username.trim().isEmpty() || password.trim().isEmpty()) {
-            response.sendRedirect("login.jsp?error=emptyfields");
+            response.sendRedirect("pages/login.jsp?error=emptyfields");
             return;
         }
 
@@ -66,11 +66,11 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("phone", phone);
             response.sendRedirect(request.getContextPath() + "/index.jsp");
         } else {
-            response.sendRedirect("login.jsp?error=invalidcredentials");
+            response.sendRedirect("pages/login.jsp?error=invalidcredentials");
         }
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect(request.getContextPath() + "/login.jsp");
+        response.sendRedirect(request.getContextPath() + "pages/login.jsp");
     }
 }
