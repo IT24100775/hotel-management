@@ -73,16 +73,51 @@ public class Booking implements Serializable {
     }
 
     // Getters and setters
-    public String getBookingId() { return bookingId; }
-    public String getUserId() { return userId; }
-    public String getRoomId() { return roomId; }
-    public Date getCheckInDate() { return checkInDate; }
-    public Date getCheckOutDate() { return checkOutDate; }
-    public int getGuests() { return guests; }
-    public String getStatus() { return status; }
+    public String getBookingId() {
+        return bookingId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public Date getCheckInDate() {
+        return checkInDate;
+    }
+
+    public Date getCheckOutDate() {
+        return checkOutDate;
+    }
+
+    public int getGuests() {
+        return guests;
+    }
+
+    public String getStatus() {
+        return status;
+    }
 
     public Object getGuestEmail() {
 
         return null;
     }
+
+    public Object getTotalPrice() {
+
+        return null;
+    }
+
+    public Object getFormattedCheckOutDate() {
+
+        return null;
+    }
+
+    public Object getGuestName() {
+        return null;
+    }
+
 }
