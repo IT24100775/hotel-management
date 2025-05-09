@@ -8,7 +8,7 @@ body {
     background-color: #006994;
     display: flex;
     align-items: center;
-    padding: 15px 30px;
+    padding: 10px 50px;
     position: fixed;
     top: 0;
     width: 100%;
@@ -18,7 +18,7 @@ body {
 }
 
 .nav-left img {
-    height: 30px;  /* Adjust this value to make the logo smaller */
+    height: 60px;
     width: auto;
 }
 
@@ -69,7 +69,7 @@ body {
     position: relative;
     display: inline-block;
     padding: 10px 0;
-    overflow: visible;  /* Ensure the dropdown is not clipped */
+    overflow: visible;
 }
 
 .dropbutton {
@@ -94,8 +94,8 @@ body {
     box-shadow: 0px 8px 16px rgba(221, 221, 221, 0.5);
     z-index: 9999;
     margin-top: 0;
-    top: 100%;  /* Position it just below the button */
-    left: 0;    /* Align to the left of the dropdown */
+    top: 100%;
+    left: 0;
 }
 
 .dropdown-content a {
@@ -114,15 +114,18 @@ body {
 }
 
 .dropdown:hover .dropdown-content {
-    display: block;  /* Display the dropdown when hovering over .dropdown */
+    display: block;
 }
 
 .content1 {
-    padding:20px;
+    padding-left:20px;
+    padding-right:20px;
+    padding-top:-20px;
+    padding-bottom:20px;
 }
 
 .content2 {
-    padding-top:500px;
+    padding-top:20px;
     padding-right: 700px;
     padding-left: 100px;
     font-family: 'Carla Sans', sans-serif;
@@ -163,7 +166,7 @@ footer {
     width: 95%;
     margin-left: 30px;
     margin-top:5px;
-    margin-bottom:80px;
+    margin-bottom:50px;
     margin-right:30px;
 }
 

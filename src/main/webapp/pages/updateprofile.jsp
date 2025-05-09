@@ -3,17 +3,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Update Profile</title>
+    <title>Update Profile - The Seabreeze Hotel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="../CSS/updateprofile.css" rel="stylesheet">
 </head>
-<body>
+<body style="background-image:url('../images/seabreezebeachhouse-homepage-header-62f26b6e960fe.jpg');">
+<jsp:include page="/pages/reusableComponents/navbar.jsp" />
+
 <%
     if (session == null || session.getAttribute("username") == null) {
-        System.out.println("Session invalid or no username, redirecting to login.jsp");
         response.sendRedirect("login.jsp");
         return;
     }
 
-    String username = (String) session.getAttribute("username");
     String fullname = (String) session.getAttribute("fullname");
     String email = (String) session.getAttribute("email");
     String phone = (String) session.getAttribute("phone");
@@ -23,36 +26,56 @@
     if (phone == null) phone = "";
 %>
 
-<h2>Update Profile</h2>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h2><br>Update Profile</h2>
+        </div>
+        <div class="card-body">
+            <%
+                if (request.getParameter("success") != null && request.getParameter("success").equals("updated")) {
+            %>
+            <div class="alert alert-success">Profile successfully updated!</div>
+            <%
+                }
+            %>
 
-<!-- Display success message -->
-<% if (request.getParameter("success") != null && request.getParameter("success").equals("updated")) { %>
-<p style="color: green;">Profile successfully updated!</p>
-<% } %>
+            <form action="${pageContext.request.contextPath}/updateprofile-servlet" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Username (cannot be changed):</label>
+                    <input type="text" class="form-control" name="username" value="<%= session.getAttribute("username") %>" readonly />
+                </div>
 
-<!-- Display error message -->
-<% if (request.getParameter("error") != null) { %>
-<p style="color: red;">Error: <%= request.getParameter("error") %></p>
-<% } %>
+                <div class="mb-3">
+                    <label class="form-label">Full Name:</label>
+                    <input type="text" class="form-control" name="fullname" value="<%= fullname %>" required />
+                </div>
 
-<form action="${pageContext.request.contextPath}/updateprofile-servlet" method="post">
-    <label>Username (cannot be changed):</label><br/>
-    <input type="text" name="username" value="<%= username %>" readonly /><br/><br/>
+                <div class="mb-3">
+                    <label class="form-label">New Password (leave blank to keep current):</label>
+                    <input type="password" class="form-control" name="password" placeholder="Enter new password" />
+                </div>
 
-    <label>Full Name:</label><br/>
-    <input type="text" name="fullname" value="<%= fullname %>" required /><br/><br/>
+                <div class="mb-3">
+                    <label class="form-label">Email:</label>
+                    <input type="email" class="form-control" name="email" value="<%= email %>" placeholder="Enter email" />
+                </div>
 
-    <label>New Password (leave blank to keep current):</label><br/>
-    <input type="password" name="password" placeholder="Enter new password" /><br/><br/>
+                <div class="mb-3">
+                    <label class="form-label">Phone:</label>
+                    <input type="text" class="form-control" name="phone" value="<%= phone %>" placeholder="Enter phone number" />
+                </div>
 
-    <label>Email:</label><br/>
-    <input type="email" name="email" value="<%= email %>" placeholder="Enter email" /><br/><br/>
+                <div class="mb-3" style="text-align: center; padding-top: 20px;">
+                    <input type="submit" class="btn btn-primary" value="Save Changes" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
-    <label>Phone:</label><br/>
-    <input type="text" name="phone" value="<%= phone %>" placeholder="Enter phone number" /><br/><br/>
-
-    <input type="submit" value="Save Changes" />
-</form>
+<jsp:include page="/pages/reusableComponents/footer.jsp" />
 
 </body>
 </html>
+
