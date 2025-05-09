@@ -7,15 +7,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f8f9fa;
+            background-color: #f8f9fa; /* Fallback color if the image doesn't load or for transparency */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-top: 100px; /* Adjust to prevent content overlap with fixed navbar */
+            background-image: url('../background.png'); /* ADJUST THIS PATH IF NEEDED */
+            background-repeat: repeat; /* Corrected spelling */
+            background-size: auto; /* Or cover, contain, or specific pixel/percentage values */
+            background-position: center top; /* Adjust as needed: top, bottom, left, right, center */
+        }
         }
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
-        . search-section{
+        .search-section {
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
             padding: 20px;
@@ -49,30 +55,143 @@
                 margin-bottom: 15px;
             }
         }
+        .navbar {
+            background-color: #006994;
+            display: flex;
+            align-items: center;
+            padding: 10px 50px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 10001;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            overflow: visible;
+        }
+
+        .nav-left img {
+            height: 60px; /* Adjust this value to make the logo smaller */
+            width: auto;
+        }
+
+        .nav-center {
+            display: flex;
+            gap: 20px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .nav-center a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-center a:hover {
+            color: white;
+            text-decoration: underline;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-right a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-right a:hover {
+            color: white;
+            text-decoration: underline;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            padding: 10px 0;
+            overflow: visible; /* Ensure the dropdown is not clipped */
+        }
+
+        .dropdown-menu {
+            background-color: white;
+        }
+
+        .dropdown-menu a {
+            color: #000000 !important;
+            padding: 10px 12px;
+            text-decoration: none;
+            display: block;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: left;
+        }
+
+        .dropdown-menu a:hover {
+            background-color: #e0e0e0;
+            color: #006994 !important;
+        }
+        footer {
+            padding: 20px;
+            background-color: #006994;
+            text-align: center;
+            line-height: 1.8;
+            color: white;
+            margin-top: 30px; /* Added some top margin to separate from the content */
+        }
+        footer a {
+            color: white;
+            text-decoration: none;
+        }
+        .social-icons {
+            margin-top: 10px;
+        }
+        .social-icons a {
+            display: inline-block;
+            margin: 0 10px;
+        }
+        .social-icons img {
+            height: 30px;
+            width: 30px;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="#">Hotel Reservation System</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" href="booking.html">Book a Room</a>
-                </li>
-
-                </li>
-                <li class="nav-item">
-
-                </li>
+<div class="navbar" style="overflow: visible">
+    <div class="nav-left">
+        <img src="../images/White and Gold Minimalist Feminine Hotel Logo (1).png" height="60px" width="auto">
+    </div>
+    <div class="nav-center">
+        <a href="../index.jsp">Home</a>
+        <a href="../index.jsp#AboutUs">About Us</a>
+        <a href="#">Rooms</a>
+        <a id="bookNowLink" href="#">Book Now</a>
+        <a href="#">Reviews</a>
+    </div>
+    <div class="nav-right">
+        <div class="dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white; text-decoration: none;">
+                <img id="userAvatar" src="../images/userlogo.png" alt="default User" style="width:40px; height:40px; border-radius:50%;" /> <span id="greeting">Hello, Nuwani</span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" style="color: #000000" href="../pages/viewprofile.jsp">View Profile</a></li>
+                <li><a class="dropdown-item" style="color: #000000" href="../pages/updateprofile.jsp">Update Profile</a></li>
+                <li><a class="dropdown-item" style="color: #000000" href="../logout-servlet">Logout</a></li>
             </ul>
         </div>
     </div>
-</nav>
+</div>
 
 <div class="container mt-4">
     <h1 class="text-center mb-4">Book a Room</h1>
@@ -106,7 +225,6 @@
     </div>
 
     <div class="row" id="roomResults">
-        <!-- Room cards will be dynamically inserted here -->
         <div class="col-md-4">
             <div class="card room-card">
                 <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" class="card-img-top room-img" alt="Single Room">
@@ -136,7 +254,7 @@
                     <h5 class="card-title">Double Room</h5>
                     <p class="card-text">
                         <strong>Room #:</strong> 201<br>
-                        <strong>Price:</strong> Rs.40,000 per night<br>
+                        <strong>Price:</strong> RS.40,000 per night<br>
                         <strong>Capacity:</strong> 2 persons
                     </p>
                     <ul class="amenities-list">
@@ -159,7 +277,7 @@
                     <h5 class="card-title">Suite</h5>
                     <p class="card-text">
                         <strong>Room #:</strong> 301<br>
-                        <strong>Price:</strong> Rs.80,000 per night<br>
+                        <strong>Price:</strong> RS.80,000 per night<br>
                         <strong>Capacity:</strong> 4 persons
                     </p>
                     <ul class="amenities-list">
@@ -178,7 +296,6 @@
     </div>
 </div>
 
-<!-- Booking Modal -->
 <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -234,46 +351,19 @@
     </div>
 </div>
 
-<footer class="bg-dark text-white py-4 mt-5">
-    <div class="container text-center">
-        <p>&copy; 2025 Hotel Reservation System. All rights reserved.</p>
-    </div>
+<footer>
+
+
+    <p><b>Explore</b><br>
+        <a href="index.jsp" style="text-decoration: none; color: white;">Home</a> | <a href="index.jsp" style="text-decoration: none;color: white;">About Us</a> | <a href="#" style="text-decoration: none;color: white;">Rooms</a> | <a href="pages/login.jsp" style="text-decoration: none;color: white;">Login</a> | <a href="pages/signup.jsp" style="text-decoration: none;color: white;">Sign Up</a>
+        <br><br><b>Get in Touch</b><br>
+        Hotel Contact Information<br>
+        <a href="mailto:info@seabreeze.com" style="text-decoration: none; color: white;">info@seabreeze.com</a><br>
+        +94 113 393 830<br><br>
+        <b>Follow Us</b><br>
+        <div class="social-icons">
+            <img src="../images/socialmedia.png" alt="Follow us on social media" style="height: 50px; width: 200px;">
+        </div>
+        <br>
+        ©2025 The Seabreeze Hotel, Inc. All rights reserved</p>
 </footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const today = new Date();
-        const dd = String(today.getDate()).padStart(2, '0');
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const yyyy = today.getFullYear();
-        const todayStr = yyyy + '-' + mm + '-' + dd;
-
-        document.getElementById('checkInDate').min = todayStr;
-        document.getElementById('checkInDate').value = todayStr;
-
-        const tomorrow = new Date(today);
-        tomorrow.setDate(tomorrow.getDate() + 1);
-        const tomorrowStr = tomorrow.toISOString().split('T')[0];
-        document.getElementById('checkOutDate').min = tomorrowStr;
-        document.getElementById('checkOutDate').value = tomorrowStr;
-
-        document.getElementById('checkInDate').addEventListener('change', function() {
-            document.getElementById('checkOutDate').min = this.value;
-        });
-
-        document.getElementById('searchForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Searching for available rooms...');
-        });
-
-        document.getElementById('bookingForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Booking confirmed! Redirecting to confirmation page...');
-            window.location.href = 'booking-confirmation.html';
-        });
-    });
-</script>
-</body>
-</html>
-
