@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link href="../CSS/updateprofile.css" rel="stylesheet">
 </head>
-<body style="background-image:url('../images/seabreezebeachhouse-homepage-header-62f26b6e960fe.jpg');">
+<body style="background-image: url('../images/bglogin.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center; margin: 0; height: 100vh;">
 <jsp:include page="/pages/reusableComponents/navbar.jsp" />
 
 <%

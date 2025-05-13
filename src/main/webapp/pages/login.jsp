@@ -5,7 +5,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="../CSS/login.css">
 </head>
-<body>
+<body style="background-image: url('../images/bglogin.jpg');">
 <form action="../login-servlet" method="post"><br>
     <img src="../images/logoblue.png" alt="logo" style="display: block; margin-right: 200px; margin-left: 75px;" width=150px height="auto"><br>
     <h2>Login</h2>
