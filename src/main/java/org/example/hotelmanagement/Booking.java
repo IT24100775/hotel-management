@@ -1,6 +1,5 @@
 package org.example.hotelmanagement;
 
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,11 +21,13 @@ public class Booking implements Serializable {
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.guests = guests;
-
     }
 
+    // This constructor seems unused and might be a leftover
     public Booking(String bookingId, String part, Date parse, Date parse1, int i) {
-
+        this.bookingId = bookingId;
+        // It's unclear what 'part', 'parse', 'parse1', and 'i' are intended for
+        // You might want to remove or properly implement this constructor
     }
 
     // Serialization format: BK-123|user1|101|2023-11-15|2023-11-20|2|CONFIRMED
@@ -49,13 +50,13 @@ public class Booking implements Serializable {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             Booking booking = new Booking(
-                    parts[1], // userId
-                    parts[2], // roomId
+                    parts[0],             // bookingId
+                    parts[2],             // roomId
+                    parts[1],             // userId
                     sdf.parse(parts[3]), // checkInDate
                     sdf.parse(parts[4]), // checkOutDate
-                    Integer.parseInt(parts[5]) // guests
+                    Integer.parseInt(parts[5])  // guests
             );
-            booking.bookingId = parts[0];
             booking.status = parts[6];
             return booking;
         } catch (Exception e) {
@@ -89,8 +90,18 @@ public class Booking implements Serializable {
         return checkInDate;
     }
 
+    public String getFormattedCheckInDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(this.checkInDate);
+    }
+
     public Date getCheckOutDate() {
         return checkOutDate;
+    }
+
+    public String getFormattedCheckOutDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        return sdf.format(this.checkOutDate);
     }
 
     public int getGuests() {
@@ -101,23 +112,22 @@ public class Booking implements Serializable {
         return status;
     }
 
+    // You should consider using actual types instead of Object if you know what these will be
     public Object getGuestEmail() {
-
         return null;
     }
 
-    public Object getTotalPrice() {
-
+    public Double getTotalPrice() {
+        // Consider storing and returning the actual price as a Double
         return null;
     }
 
-    public Object getFormattedCheckOutDate() {
-
+    public String getGuestName() {
         return null;
     }
 
-    public Object getGuestName() {
-        return null;
+    // Setter for totalPrice if you decide to store it
+    public void setTotalPrice(Double totalPrice) {
+        // this.totalPrice = totalPrice;
     }
-
 }
