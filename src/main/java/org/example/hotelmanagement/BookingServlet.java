@@ -29,13 +29,13 @@ public class BookingServlet extends HttpServlet {
             if ("book".equals(action)) {
                 // Create new booking
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                Booking booking;
-                booking = new Booking(
+                Booking booking = new Booking(
                         userId,
                         request.getParameter("roomId"),
                         sdf.parse(request.getParameter("checkIn")),
                         sdf.parse(request.getParameter("checkOut")),
-                        Integer.parseInt(request.getParameter("guests")));
+                        Integer.parseInt(request.getParameter("guests"))
+                );
 
                 BookingFileHandler.saveBooking(booking);
                 response.sendRedirect("dashboard.jsp?message=Booking+created");
@@ -43,16 +43,31 @@ public class BookingServlet extends HttpServlet {
             } else if ("cancel".equals(action)) {
                 // Cancel existing booking
                 String bookingId = request.getParameter("bookingId");
-                if (bookingId != null && !bookingId.isEmpty()) {
-                    BookingFileHandler.cancelBooking(bookingId);
-                    response.sendRedirect("cancel-confirmation.jsp?error=Cancellation+failed");
+                String reason = request.getParameter("cancellationReason");
+                String otherReason = request.getParameter("otherReason");
 
+                // If "Other" is selected, use custom input
+                if ("other".equals(reason)) {
+                    reason = otherReason;
+                }
+
+                if (bookingId != null && !bookingId.isEmpty()) {
+                    boolean success = BookingFileHandler.cancelBooking(bookingId);
+
+                    if (success) {
+                        // Optionally, you can store the cancellation reason somewhere
+                        response.sendRedirect("dashboard.jsp?message=Booking+cancelled+successfully");
+                    } else {
+                        // ✅ Fixed JSP path here
+                        response.sendRedirect("pages/cancel-confirmation.jsp?error=Cancellation+failed");
+                    }
                 } else {
                     response.sendRedirect("dashboard.jsp?error=Invalid+booking+ID");
                 }
             }
         } catch (Exception e) {
-            response.sendRedirect("dashboard.jsp?error=Invalid+booking+ID");
+            e.printStackTrace();
+            response.sendRedirect("dashboard.jsp?error=Invalid+booking+details");
         }
     }
 
