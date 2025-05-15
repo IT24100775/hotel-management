@@ -197,10 +197,9 @@
                 </svg>
             </div>
             <h2 class="error-message">Booking Failed</h2>
-            <p class="error-message">We're sorry, but there was an error processing your booking. Please try again or contact our support team.</p>
+            <p class="error-message">We're sorry, but there was an error processing your booking. Please try again.</p>
             <div class="error-actions">
                 <a href="booking.jsp">Try Again</a>
-                <a href="contact.jsp">Contact Support</a>
                 <a href="../index.jsp">Go to Home</a>
             </div>
         </div>
