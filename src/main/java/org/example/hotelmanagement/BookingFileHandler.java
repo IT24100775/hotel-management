@@ -8,7 +8,7 @@ public class BookingFileHandler {
     private static final String FILE_PATH = "resources/bookings.txt";
     private static final Object fileLock = new Object();
 
-    public static void saveBooking(Booking booking) throws IOException {
+    public static String saveBooking(Booking booking) throws IOException {
         synchronized (fileLock) {
             ensureFileExists();
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH, true))) {
@@ -16,6 +16,7 @@ public class BookingFileHandler {
                 writer.newLine();
             }
         }
+        return null;
     }
 
     public static List<Booking> getAllBookings() throws IOException {
