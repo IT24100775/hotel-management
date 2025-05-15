@@ -1,7 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="java.util.List" %>
-<%@ page import="org.example.hotelmanagement.Booking" %>
-<%@ page import="java.text.SimpleDateFormat" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,15 +7,15 @@
     <title>My Bookings | Hotel Reservation System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-      body {
-        background-color: #f8f9fa; /* Fallback background color */
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        margin-top: 100px;
-        background-image: url('../images/background.png'); /* Path to your PNG image */
-        background-repeat: no-repeat; /* Prevent the image from repeating */
-        background-size: cover; /* Scale the image to cover the entire body */
-        background-position: center center; /* Center the image in the body */
-      }
+        body {
+            background-color: #f8f9fa; /* Fallback background color */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-top: 100px;
+            background-image: url('../images/background.png'); /* Path to your PNG image */
+            background-repeat: no-repeat; /* Prevent the image from repeating */
+            background-size: cover; /* Scale the image to cover the entire body */
+            background-position: center center; /* Center the image in the body */
+        }
         .booking-table {
             width: 100%;
             border-collapse: collapse;
@@ -59,7 +56,7 @@
             font-style: italic;
             color: #777;
         }
-        /* Custom Navbar CSS */
+        /* Custom Navbar CSS (same as before) */
         .navbar {
             background-color: #006994;
             display: flex;
@@ -159,7 +156,7 @@
             display: block; /* Display the dropdown when hovering over .dropdown */
         }
 
-        /* Footer CSS */
+        /* Footer CSS (same as before) */
         footer {
             padding: 20px;
             background-color: #006994;
@@ -215,43 +212,12 @@
                 </tr>
             </thead>
             <tbody id="booking-list">
-                <%
-                    List<Booking> bookings = (List<Booking>) request.getAttribute("bookings");
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
-                    if (bookings != null && !bookings.isEmpty()) {
-                        for (Booking booking : bookings) {
-                %>
-                <tr>
-                    <td><%= booking.getBookingId() %></td>
-                    <td><%= booking.getRoomId() %></td>
-                    <td><%= sdf.format(booking.getCheckInDate()) %></td>
-                    <td><%= sdf.format(booking.getCheckOutDate()) %></td>
-                    <td><%= booking.getGuests() %></td>
-                    <td><%= booking.getStatus() %></td>
-                    <td class="booking-actions">
-                        <a href="#">View Details</a>
-                        <% if ("CONFIRMED".equals(booking.getStatus())) { %>
-                        <a href="<%= request.getContextPath() %>/booking?action=cancel&bookingId=<%= booking.getBookingId() %>">Cancel</a>
-                        <% } else { %>
-                        <span style="color: #777;">Cancelled</span>
-                        <% } %>
-                    </td>
+                <tr id="loading-row">
+                    <td colspan="7" style="text-align: center;">Loading bookings...</td>
                 </tr>
-                <%
-                        }
-                    } else {
-                %>
-                <tr>
-                    <td colspan="7" class="no-bookings">No bookings found.</td>
-                </tr>
-                <%
-                    }
-                %>
                 </tbody>
         </table>
-
-        </div>
+    </div>
 
     <footer>
         <p><b>Explore</b><br>
@@ -270,7 +236,61 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // JavaScript for any client-side functionality can be added here if needed.
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/api/bookings') // Replace '/api/bookings' with the actual URL of your backend endpoint
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(bookings => {
+                    const bookingList = document.getElementById('booking-list');
+                    document.getElementById('loading-row').remove(); // Remove the loading message
+
+                    if (bookings && bookings.length > 0) {
+                        bookings.forEach(booking => {
+                            const row = bookingList.insertRow();
+                            row.insertCell().textContent = booking.bookingId;
+                            row.insertCell().textContent = booking.roomId;
+                            row.insertCell().textContent = booking.checkInDate;
+                            row.insertCell().textContent = booking.checkOutDate;
+                            row.insertCell().textContent = booking.guests;
+                            row.insertCell().textContent = booking.status;
+
+                            const actionsCell = row.insertCell();
+                            const viewDetailsLink = document.createElement('a');
+                            viewDetailsLink.href = '#'; // Add appropriate link if needed
+                            viewDetailsLink.textContent = 'View Details';
+                            actionsCell.appendChild(viewDetailsLink);
+
+                            if (booking.status === 'CONFIRMED') {
+                                const cancelLink = document.createElement('a');
+                                cancelLink.href = `/booking?action=cancel&bookingId=${booking.bookingId}`;
+                                cancelLink.textContent = 'Cancel';
+                                actionsCell.appendChild(document.createTextNode(' ')); // Add space
+                                actionsCell.appendChild(cancelLink);
+                            } else {
+                                const cancelledSpan = document.createElement('span');
+                                cancelledSpan.style.color = '#777';
+                                cancelledSpan.textContent = 'Cancelled';
+                                actionsCell.appendChild(cancelledSpan);
+                            }
+                        });
+                    } else {
+                        const noBookingsRow = bookingList.insertRow();
+                        const noBookingsCell = noBookingsRow.insertCell();
+                        noBookingsCell.colSpan = 7;
+                        noBookingsCell.classList.add('no-bookings');
+                        noBookingsCell.textContent = 'No bookings found.';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching bookings:', error);
+                    const bookingList = document.getElementById('booking-list');
+                    document.getElementById('loading-row').textContent = 'Failed to load bookings.';
+                });
+        });
     </script>
 </body>
 </html>
