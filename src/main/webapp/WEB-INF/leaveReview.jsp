@@ -6,8 +6,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page session="true" %>
-
 <html>
 <head>
     <title>Leave a Review</title>
@@ -18,22 +16,24 @@
 <div class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-xl">
     <h2 class="text-2xl font-semibold text-gray-800 mb-4 text-center">Leave a Review</h2>
 
-    <!-- Feedback messages -->
-    <c:if test="${not empty message}">
-        <div class="bg-green-100 text-green-700 p-3 mb-4 rounded">
-                ${message}
-        </div>
-    </c:if>
-    <c:if test="${not empty error}">
-        <div class="bg-red-100 text-red-700 p-3 mb-4 rounded">
-                ${error}
-        </div>
-    </c:if>
+    <!-- Feedback Messages -->
+
+        <div class="bg-green-100 text-green-700 p-3 mb-4 rounded">${message}</div>
+
+
+
+        <div class="bg-red-100 text-red-700 p-3 mb-4 rounded">${error}</div>
+
 
     <!-- Review Form -->
     <form action="submitReview" method="post" class="space-y-4">
-        <!-- Hidden Room ID -->
-        <input type="hidden" name="roomId" value="${param.roomId}"/>
+        <input type="hidden" name="roomId" value="${param.roomId}" />
+
+        <!-- Username -->
+        <div>
+            <label for="username" class="block text-sm font-medium text-gray-700 mb-1">Your Name</label>
+            <input type="text" id="username" name="username" required class="w-full border rounded-lg p-2" />
+        </div>
 
         <!-- Rating -->
         <div>
