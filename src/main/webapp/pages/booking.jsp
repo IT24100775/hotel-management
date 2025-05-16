@@ -7,7 +7,6 @@
     <title>Book a Room | Hotel Reservation System</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-
         body {
             background-color: #f8f9fa; /* Fallback background color */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -17,11 +16,13 @@
             background-size: cover; /* Scale the image to cover the entire body */
             background-position: center center; /* Center the image in the body */
         }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
         }
+
         .search-section {
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
@@ -29,33 +30,41 @@
             background-color: white;
             border-radius: 8px;
         }
+
         .room-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             margin-bottom: 20px;
             height: 100%;
         }
+
         .room-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
+
         .room-img {
             height: 200px;
             object-fit: cover;
             border-radius: 8px 8px 0 0;
         }
+
         .amenities-list {
             list-style-type: none;
             padding-left: 0;
         }
+
         .amenities-list li:before {
             content: "✓ ";
             color: green;
         }
+
         @media (max-width: 768px) {
             .search-section .row > div {
                 margin-bottom: 15px;
             }
         }
+
+        /* Custom Navbar CSS - From bookingconfirmation.jsp */
         .navbar {
             background-color: #006994;
             display: flex;
@@ -124,72 +133,77 @@
             overflow: visible; /* Ensure the dropdown is not clipped */
         }
 
-        .dropdown-menu {
+        .dropdown-content {
+            display: none;
+            position: absolute;
             background-color: white;
+            min-width: 120px;
+            box-shadow: 0px 8px 16px rgba(221, 221, 221, 0.5);
+            z-index: 9999;
+            margin-top: 0;
+            top: 100%; /* Position it just below the button */
+            left: 0; /* Align to the left of the dropdown */
         }
 
-        .dropdown-menu a {
-            color: #000000 !important;
+        .dropdown-content a {
+            color: #333 !important;
             padding: 10px 12px;
             text-decoration: none;
             display: block;
             width: 100%;
             box-sizing: border-box;
-            text-align: left;
+            text-align: center;
         }
 
-        .dropdown-menu a:hover {
+        .dropdown-content a:hover {
             background-color: #e0e0e0;
             color: #006994 !important;
         }
+
+        .dropdown:hover .dropdown-content {
+            display: block; /* Display the dropdown when hovering over .dropdown */
+        }
+
+        /* Footer CSS - From bookingconfirmation.jsp */
         footer {
             padding: 20px;
             background-color: #006994;
             text-align: center;
             line-height: 1.8;
             color: white;
-            margin-top: 30px; /* Added some top margin to separate from the content */
+            margin-top: 30px;
         }
+
         footer a {
             color: white;
             text-decoration: none;
-        }
-        .social-icons {
-            margin-top: 10px;
-        }
-        .social-icons a {
-            display: inline-block;
-            margin: 0 10px;
-        }
-        .social-icons img {
-            height: 30px;
-            width: 30px;
-            vertical-align: middle;
         }
     </style>
 </head>
 <body>
 <div class="navbar" style="overflow: visible">
     <div class="nav-left">
-        <img src="../images/White and Gold Minimalist Feminine Hotel Logo (1).png" height="60px" width="auto">
+        <img src="../images/hotellogo.png" height="60px" width="auto" alt="Hotel Logo">
     </div>
     <div class="nav-center">
         <a href="../index.jsp">Home</a>
         <a href="../index.jsp#AboutUs">About Us</a>
         <a href="#">Rooms</a>
-        <a id="bookNowLink" href="#">Book Now</a>
+        <a href="#">Book Now</a>
         <a href="#">Reviews</a>
     </div>
     <div class="nav-right">
         <div class="dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white; text-decoration: none;">
-                <img id="userAvatar" src="../images/userlogo.png" alt="default User" style="width:40px; height:40px; border-radius:50%;" /> <span id="greeting">Hello, <%= session.getAttribute("username") != null ? session.getAttribute("username") : "Guest" %></span>
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+               style="color: white; text-decoration: none;">
+                <img src="../images/userlogo.png" alt="default User"
+                     style="width:40px; height:40px; border-radius:50%;"/> Hello, <%= session.getAttribute("username") != null ? session.getAttribute("username") : "Guest" %>
             </a>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" style="color: #000000" href="../pages/viewprofile.jsp">View Profile</a></li>
-                <li><a class="dropdown-item" style="color: #000000" href="../pages/updateprofile.jsp">Update Profile</a></li>
-                <li><a class="dropdown-item" style="color: #000000" href="../logout-servlet">Logout</a></li>
-            </ul>
+            <div class="dropdown-content">
+                <a href="../pages/viewprofile.jsp">View Profile</a>
+                <a href="../pages/updateprofile.jsp">Update Profile</a>
+                <a href="../logout-servlet">Logout</a>
+            </div>
         </div>
     </div>
 </div>
@@ -199,7 +213,7 @@
 
     <div class="search-section">
         <h3 class="mb-4">Search Available Rooms</h3>
-        <form id="searchForm" action="<%= request.getContextPath() %>/booking" method="get">
+        <form id="searchForm">
             <div class="row">
                 <div class="col-md-3">
                     <label for="checkInDate" class="form-label">Check-in Date</label>
@@ -220,56 +234,88 @@
                 </div>
                 <div class="col-md-3 d-flex align-items-end">
                     <button type="submit" class="btn btn-primary w-100">Search Rooms</button>
-                    <input type="hidden" name="action" value="search">
                 </div>
             </div>
         </form>
     </div>
 
     <div class="row" id="roomResults">
-        <%
-            // Assuming you fetch a list of available rooms and store it in a request attribute called "availableRooms"
-            List<org.example.hotelmanagement.Room> availableRooms = (List<org.example.hotelmanagement.Room>) request.getAttribute("availableRooms");
-            if (availableRooms != null && !availableRooms.isEmpty()) {
-                for (org.example.hotelmanagement.Room room : availableRooms) {
-        %>
         <div class="col-md-4">
             <div class="card room-card">
-                <img src="<%= room.getImageUrl() != null ? room.getImageUrl() : "https://via.placeholder.com/300x200" %>" class="card-img-top room-img" alt="<%= room.getRoomType() %>">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" class="card-img-top room-img" alt="Single Room">
                 <div class="card-body">
-                    <h5 class="card-title"><%= room.getRoomType() %></h5>
+                    <h5 class="card-title">Single Room</h5>
                     <p class="card-text">
-                        <strong>Room #:</strong> <%= room.getRoomId() %><br>
-                        <strong>Price:</strong> RS.<%= room.getPricePerNight() %> per night<br>
-                        <strong>Capacity:</strong> <%= room.getCapacity() %> person<%= room.getCapacity() > 1 ? "s" : "" %>
+                        <strong>Room #:</strong> 101<br>
+                        <strong>Price:</strong> RS.20,000 per night<br>
+                        <strong>Capacity:</strong> 1 person
                     </p>
                     <ul class="amenities-list">
-                        <% if (room.hasAmenity("Free WiFi")) { %><li>Free WiFi</li><% } %>
-                        <% if (room.hasAmenity("Air Conditioning")) { %><li>Air Conditioning</li><% } %>
-                        <% if (room.hasAmenity("TV")) { %><li>TV</li><% } %>
-                        <% if (room.hasAmenity("Mini Fridge")) { %><li>Mini Fridge</li><% } %>
-                        <% if (room.hasAmenity("Smart TV")) { %><li>Smart TV</li><% } %>
-                        <% if (room.hasAmenity("Mini Bar")) { %><li>Mini Bar</li><% } %>
-                        </ul>
+                        <li>Free WiFi</li>
+                        <li>Air Conditioning</li>
+                        <li>TV</li>
+                    </ul>
                     <button class="btn btn-primary book-btn w-100" data-bs-toggle="modal" data-bs-target="#bookingModal"
-                            data-room-id="<%= room.getRoomId() %>"
-                            data-room-type="<%= room.getRoomType() %>"
-                            data-room-price="<%= room.getPricePerNight() %>">
+                            data-room-id="101"
+                            data-room-type="Single Room"
+                            data-room-price="20000">
                         Book Now
                     </button>
                 </div>
             </div>
         </div>
-        <%
-                }
-            } else {
-        %>
-        <div class="col-12 text-center">
-            <p>No rooms available based on your search criteria.</p>
+
+        <div class="col-md-4">
+            <div class="card room-card">
+                <img src="https://images.unsplash.com/photo-1596178065887-1198b6148b2b" class="card-img-top room-img" alt="Double Room">
+                <div class="card-body">
+                    <h5 class="card-title">Double Room</h5>
+                    <p class="card-text">
+                        <strong>Room #:</strong> 201<br>
+                        <strong>Price:</strong> RS.40,000 per night<br>
+                        <strong>Capacity:</strong> 2 persons
+                    </p>
+                    <ul class="amenities-list">
+                        <li>Free WiFi</li>
+                        <li>Air Conditioning</li>
+                        <li>TV</li>
+                        <li>Mini Fridge</li>
+                    </ul>
+                    <button class="btn btn-primary book-btn w-100" data-bs-toggle="modal" data-bs-target="#bookingModal"
+                            data-room-id="201"
+                            data-room-type="Double Room"
+                            data-room-price="40000">
+                        Book Now
+                    </button>
+                </div>
+            </div>
         </div>
-        <%
-            }
-        %>
+
+        <div class="col-md-4">
+            <div class="card room-card">
+                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b" class="card-img-top room-img" alt="Suite">
+                <div class="card-body">
+                    <h5 class="card-title">Suite</h5>
+                    <p class="card-text">
+                        <strong>Room #:</strong> 301<br>
+                        <strong>Price:</strong> RS.80,000 per night<br>
+                        <strong>Capacity:</strong> 4 persons
+                    </p>
+                    <ul class="amenities-list">
+                        <li>Free WiFi</li>
+                        <li>Air Conditioning</li>
+                        <li>Smart TV</li>
+                        <li>Mini Bar</li>
+                    </ul>
+                    <button class="btn btn-primary book-btn w-100" data-bs-toggle="modal" data-bs-target="#bookingModal"
+                            data-room-id="301"
+                            data-room-type="Suite"
+                            data-room-price="80000">
+                        Book Now
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -284,19 +330,23 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label">Room Type</label>
-                        <input type="text" class="form-control" id="modalRoomType" name="modalRoomType" readonly>
+                        <input type="text" class="form-control" id="Roomtype" name="Roomtype" required>
+
+
                     </div>
                     <div class="mb-3">
                         <label class="form-label">Price per Night (RS)</label>
-                        <input type="text" class="form-control" id="modalRoomPrice" name="modalRoomPrice" readonly>
+                        <input type="text" class="form-control" id="Pricepernight" name="Pricepernight" required>
+
                     </div>
                     <div class="mb-3">
                         <label for="checkInDisplay" class="form-label">Check-in Date</label>
-                        <input type="text" class="form-control" id="checkInDisplay" name="checkInDisplay" readonly>
+                        <input type="text" class="form-control" id="checkInDisplay" name="checkInDisplay" required>
+
                     </div>
                     <div class="mb-3">
                         <label for="checkOutDisplay" class="form-label">Check-out Date</label>
-                        <input type="text" class="form-control" id="checkOutDisplay" name="checkOutDisplay" readonly>
+                        <input type="text" class="form-control" id="checkOutDisplay" name="checkOutDisplay" required>
                     </div>
                     <div class="mb-3">
                         <label for="guestName" class="form-label">Full Name</label>
@@ -320,7 +370,12 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="submit" class="btn btn-primary">Confirm Booking</button>
+                    <div class="error-actions">
+                        <a href="bookingconfirmation">Try Again</a>
+
+                    </div>
                 </div>
+                  </div>
             </form>
         </div>
     </div>
@@ -328,13 +383,16 @@
 
 <footer>
     <p><b>Explore</b><br>
-        <a href="../index.jsp" style="text-decoration: none; color: white;">Home</a> | <a href="../index.jsp#AboutUs" style="text-decoration: none;color: white;">About Us</a> | <a href="#" style="text-decoration: none;color: white;">Rooms</a> | <a href="../pages/login.jsp" style="text-decoration: none;color: white;">Login</a> | <a href="../pages/signup.jsp" style="text-decoration: none;color: white;">Sign Up</a>
+        <a href="../index.jsp" style="text-decoration: none; color: white;">Home</a> | <a href="../index.jsp"
+                                                                                       style="text-decoration: none;color: white;">About
+            Us</a> | <a href="#" style="text-decoration: none;color: white;">Rooms</a> | <a
+                href="../pages/login.jsp" style="text-decoration: none;color: white;">Login</a> | <a
+                href="../pages/signup.jsp" style="text-decoration: none;color: white;">Sign Up</a>
         <br><br><b>Get in Touch</b><br>
         Hotel Contact Information<br>
         <a href="mailto:info@seabreeze.com" style="text-decoration: none; color: white;">info@seabreeze.com</a><br>
         +94 113 393 830<br><br>
-        <b>Follow Us</b><br>
-        <div class="social-icons">
+        <b>Follow Us</b><br><div class="social-icons">
             <img src="../images/socialmedia.png" alt="Follow us on social media" style="height: 50px; width: 200px;">
         </div>
         <br>
@@ -342,27 +400,5 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const bookingModal = document.getElementById('bookingModal');
-        if (bookingModal) {
-            bookingModal.addEventListener('show.bs.modal', function (event) {
-                const button = event.relatedTarget;
-
-                // Get data attributes from the triggering button
-                const roomId = button.getAttribute('data-room-id');
-                const roomType = button.getAttribute('data-room-type');
-                const roomPrice = button.getAttribute('data-room-price');
-
-                // Populate modal fields
-                const roomIdInput = bookingModal.querySelector('#modalRoomId');
-                const roomTypeInput = bookingModal.querySelector('#modalRoomType');
-                const roomPriceInput = bookingModal.querySelector('#modalRoomPrice');
-
-                if (roomIdInput) roomIdInput.value = roomId;
-                if (roomTypeInput) roomTypeInput.textContent = roomType;
-                if (roomPriceInput) roomPriceInput.textContent = roomPrice;
-            });
-        }
-    });
-</script>
+</body>
+</html>
