@@ -8,13 +8,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f8f9fa; /* Fallback background color */
+            background-color: #f8f9fa;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin-top: 100px;
-            background-image: url('../images/background.png'); /* Path to your PNG image */
-            background-repeat: no-repeat; /* Prevent the image from repeating */
-            background-size: cover; /* Scale the image to cover the entire body */
-            background-position: center center; /* Center the image in the body */
+            background-image: url('../images/background.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
         }
 
         .confirmation-card {
@@ -43,7 +43,6 @@
             margin-bottom: 10px;
         }
 
-        /* Custom Navbar CSS */
         .navbar {
             background-color: #006994;
             display: flex;
@@ -58,7 +57,7 @@
         }
 
         .nav-left img {
-            height: 60px; /* Adjust this value to make the logo smaller */
+            height: 60px;
             width: auto;
         }
 
@@ -109,7 +108,7 @@
             position: relative;
             display: inline-block;
             padding: 10px 0;
-            overflow: visible; /* Ensure the dropdown is not clipped */
+            overflow: visible;
         }
 
         .dropdown-content {
@@ -119,9 +118,8 @@
             min-width: 120px;
             box-shadow: 0px 8px 16px rgba(221, 221, 221, 0.5);
             z-index: 9999;
-            margin-top: 0;
-            top: 100%; /* Position it just below the button */
-            left: 0; /* Align to the left of the dropdown */
+            top: 100%;
+            left: 0;
         }
 
         .dropdown-content a {
@@ -140,10 +138,9 @@
         }
 
         .dropdown:hover .dropdown-content {
-            display: block; /* Display the dropdown when hovering over .dropdown */
+            display: block;
         }
 
-        /* Footer CSS */
         footer {
             padding: 20px;
             background-color: #006994;
@@ -203,13 +200,17 @@
             We’ve received your booking and everything is set.<br>
             A confirmation email has been sent to your registered email address.
         </p>
+
         <div class="booking-details">
             <h4>Booking Summary:</h4>
-            <p><strong>Room Type:</strong> <span id="roomType"></span></p>
-            <p><strong>Check-in Date:</strong> <span id="checkInDate"></span></p>
-            <p><strong>Check-out Date:</strong> <span id="checkOutDate"></span></p>
-            <p><strong>Total Price:</strong> <span id="totalPrice"></span></p>
+            <p><strong>Booking ID:</strong> <span id="bookingIdDisplay"><%= request.getAttribute("bookingId") != null ? request.getAttribute("bookingId") : "N/A" %></span></p>
+            <p><strong>Room Type:</strong> <span id="roomType"><%= request.getAttribute("roomType") != null ? request.getAttribute("roomType") : "N/A" %></span></p>
+            <p><strong>Check-in Date:</strong> <span id="checkInDate"><%= request.getAttribute("checkInDate") != null ? request.getAttribute("checkInDate") : "N/A" %></span></p>
+            <p><strong>Check-out Date:</strong> <span id="checkOutDate"><%= request.getAttribute("checkOutDate") != null ? request.getAttribute("checkOutDate") : "N/A" %></span></p>
+            <p><strong>Total Price:</strong> <span id="totalPrice"><%= request.getAttribute("totalPrice") != null ? request.getAttribute("totalPrice") : "N/A" %></span></p>
+            <p><strong>Number of Guests:</strong> <span id="guests"><%= request.getAttribute("guests") != null ? request.getAttribute("guests") : "N/A" %></span></p>
         </div>
+
         <p class="card-text">
             <strong>Need Help?</strong><br>
             For changes or cancellations, contact us at:<br>
@@ -217,19 +218,18 @@
         </p>
 
         <div class="text-center mt-4">
-            <button class="btn btn-danger" onclick="cancelBooking()">Cancel Booking</button>
+            <a href="cancel-confirmation.jsp?bookingId=<%= request.getAttribute("bookingId") %>" class="btn btn-danger">Cancel Booking</a>
         </div>
-
     </div>
 </div>
 
 <footer>
     <p><b>Explore</b><br>
-        <a href="../index.jsp" style="text-decoration: none; color: white;">Home</a> | <a href="../index.jsp"
-                                                                                       style="text-decoration: none;color: white;">About
-            Us</a> | <a href="#" style="text-decoration: none;color: white;">Rooms</a> | <a
-                href="../pages/login.jsp" style="text-decoration: none;color: white;">Login</a> | <a
-                href="../pages/signup.jsp" style="text-decoration: none;color: white;">Sign Up</a>
+        <a href="../index.jsp" style="text-decoration: none; color: white;">Home</a> |
+        <a href="../index.jsp" style="text-decoration: none;color: white;">About Us</a> |
+        <a href="#" style="text-decoration: none;color: white;">Rooms</a> |
+        <a href="../pages/login.jsp" style="text-decoration: none;color: white;">Login</a> |
+        <a href="../pages/signup.jsp" style="text-decoration: none;color: white;">Sign Up</a>
         <br><br><b>Get in Touch</b><br>
         Hotel Contact Information<br>
         <a href="mailto:info@seabreeze.com" style="text-decoration: none; color: white;">info@seabreeze.com</a><br>
@@ -237,43 +237,11 @@
         <b>Follow Us</b><br>
         <div class="social-icons">
             <img src="../images/socialmedia.png" alt="Follow us on social media" style="height: 50px; width: 200px;">
-        </div>
-        <br>
+        </div><br>
         ©2025 The Seabreeze Hotel, Inc. All rights reserved</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    function cancelBooking() {
-        if (confirm("Are you sure you want to cancel this booking?")) {
-            // Assuming you have a way to know the bookingId here, perhaps from a previous page or session
-            // You would replace 'YOUR_BOOKING_ID' with the actual booking ID
-            window.location.href = "<%= request.getContextPath() %>/booking?action=cancel&bookingId=YOUR_BOOKING_ID";
-        }
-    }
 
-    // Function to extract booking details from the URL query parameters
-    function getBookingDetailsFromURL() {
-        const urlParams = new URLSearchParams(window.location.search);
-        return {
-            roomType: urlParams.get('roomType'),
-            checkInDate: urlParams.get('checkInDate'),
-            checkOutDate: urlParams.get('checkOutDate'),
-            totalPrice: urlParams.get('totalPrice')
-        };
-    }
-
-    // Function to display the booking summary
-    function displayBookingSummary() {
-        const bookingDetails = getBookingDetailsFromURL();
-        document.getElementById('roomType').textContent = bookingDetails.roomType || 'N/A';
-        document.getElementById('checkInDate').textContent = bookingDetails.checkInDate || 'N/A';
-        document.getElementById('checkOutDate').textContent = bookingDetails.checkOutDate || 'N/A';
-        document.getElementById('totalPrice').textContent = bookingDetails.totalPrice ? `$${bookingDetails.totalPrice}` : 'N/A';
-    }
-
-    // Call the function to display the summary when the page loads
-    window.onload = displayBookingSummary;
-</script>
 </body>
 </html>
