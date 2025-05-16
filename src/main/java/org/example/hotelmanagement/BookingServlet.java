@@ -5,9 +5,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import jakarta.servlet.RequestDispatcher; // Import this class
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet("/booking")
@@ -29,16 +30,61 @@ public class BookingServlet extends HttpServlet {
             if ("book".equals(action)) {
                 // Create new booking
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                String roomId = request.getParameter("modalRoomId");
+                String checkInParam = request.getParameter("checkIn");  // Use hidden field names
+                String checkOutParam = request.getParameter("checkOut"); // Use hidden field names
+                int guests = Integer.parseInt(request.getParameter("guests"));
+                String roomType = request.getParameter("modalRoomType");
+                String roomPriceStr = request.getParameter("modalRoomPrice");
+
+
+                Date checkInDate = null;
+                Date checkOutDate = null;
+
+                try {
+                    checkInDate = sdf.parse(checkInParam);
+                    checkOutDate = sdf.parse(checkOutParam);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    response.sendRedirect("booking.jsp?error=Invalid+date+format");
+                    return;
+                }
+
                 Booking booking = new Booking(
                         userId,
-                        request.getParameter("roomId"),
-                        sdf.parse(request.getParameter("checkIn")),
-                        sdf.parse(request.getParameter("checkOut")),
-                        Integer.parseInt(request.getParameter("guests"))
+                        roomId,
+                        checkInDate,
+                        checkOutDate,
+                        guests
                 );
 
-                BookingFileHandler.saveBooking(booking);
-                response.sendRedirect("dashboard.jsp?message=Booking+created");
+                // Assuming BookingFileHandler.saveBooking now returns the booking ID or the Booking object itself
+                String bookingId = BookingFileHandler.saveBooking(booking);
+
+                double totalPrice = 0;
+                try {
+                    long diff = checkOutDate.getTime() - checkInDate.getTime();
+                    int numberOfNights = (int) (diff / (24 * 60 * 60 * 1000));
+                    double roomPrice = Double.parseDouble(roomPriceStr);
+                    totalPrice = roomPrice * numberOfNights;
+                } catch (NumberFormatException e) {
+                    e.printStackTrace();
+                    response.sendRedirect("booking.jsp?error=Invalid+room+price");
+                    return;
+                }
+
+
+                // Set attributes in the request
+                request.setAttribute("bookingId", bookingId);
+                request.setAttribute("checkInDate", checkInParam);
+                request.setAttribute("checkOutDate", checkOutParam);
+                request.setAttribute("totalPrice", totalPrice);
+                request.setAttribute("roomType", roomType);
+                request.setAttribute("guests", String.valueOf(guests)); // Make sure guests is a String
+
+                // Forward to booking confirmation page with details
+                RequestDispatcher rd = request.getRequestDispatcher("/pages/bookingconfirmation.jsp");
+                rd.forward(request, response);
 
             } else if ("cancel".equals(action)) {
                 // Cancel existing booking
@@ -58,7 +104,6 @@ public class BookingServlet extends HttpServlet {
                         // Optionally, you can store the cancellation reason somewhere
                         response.sendRedirect("dashboard.jsp?message=Booking+cancelled+successfully");
                     } else {
-                        // ✅ Fixed JSP path here
                         response.sendRedirect("pages/cancel-confirmation.jsp?error=Cancellation+failed");
                     }
                 } else {
