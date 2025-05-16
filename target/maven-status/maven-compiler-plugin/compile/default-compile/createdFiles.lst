@@ -1,0 +1,4 @@
+com\hotel\util\ReviewFileUtil.class
+com\hotel\servlet\ReviewServlet.class
+com\hotel\servlet\HotelDemo.class
+com\hotel\model\Review.class
