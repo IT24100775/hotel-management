@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #2563eb;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #4b5563;
+            margin-top: 30px;
+        }
+        pre {
+            background-color: #f3f4f6;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hotel Booking API</h1>
+    <p>Welcome to the Hotel Booking API. This API provides endpoints for managing users, payments, and reviews.</p>
+    
+    <h2>API Endpoints</h2>
+    
+    <h3>User Endpoints</h3>
+    <ul>
+        <li><code>GET /api/users/{id}</code> - Get user by ID</li>
+        <li><code>POST /api/users/login</code> - User login</li>
+        <li><code>POST /api/users/register</code> - User registration</li>
+    </ul>
+    
+    <h3>Payment Endpoints</h3>
+    <ul>
+        <li><code>GET /api/payments</code> - Get all payments</li>
+        <li><code>GET /api/payments/{id}</code> - Get payment by ID</li>
+        <li><code>GET /api/payments/refundable</code> - Get refundable payments</li>
+        <li><code>GET /api/payments/status/{status}</code> - Get payments by status</li>
+        <li><code>POST /api/payments</code> - Create a new payment</li>
+        <li><code>POST /api/payments/{id}/refund</code> - Process a refund</li>
+    </ul>
+    
+    <h3>Review Endpoints</h3>
+    <ul>
+        <li><code>GET /api/reviews</code> - Get all reviews</li>
+        <li><code>GET /api/reviews/approved</code> - Get approved reviews</li>
+        <li><code>GET /api/reviews/{id}</code> - Get review by ID</li>
+        <li><code>GET /api/reviews/user/{userId}</code> - Get user reviews</li>
+        <li><code>POST /api/reviews</code> - Create a new review</li>
+        <li><code>PATCH /api/reviews/{id}/approve</code> - Approve a review</li>
+    </ul>
+</body>
+</html>
