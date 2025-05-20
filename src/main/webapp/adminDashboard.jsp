@@ -76,7 +76,7 @@
 
 <style>
 body {
-    background: url('<%= request.getContextPath() %>/images/seabreeze.png') no-repeat center center fixed;
+    background: url('<%= request.getContextPath() %>/images/seabreezeadmin.png') no-repeat center center fixed;
     background-size: cover;
     min-height: 100vh;
 }

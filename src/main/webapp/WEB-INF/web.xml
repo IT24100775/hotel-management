@@ -14,4 +14,14 @@
   <session-config>
     <session-timeout>30</session-timeout>
   </session-config>
+
+  <servlet>
+    <servlet-name>AdminServlet</servlet-name>
+    <servlet-class>org.example.servlet.AdminServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+    <servlet-name>AdminServlet</servlet-name>
+    <url-pattern>/admin</url-pattern>
+</servlet-mapping>
 </web-app>
+

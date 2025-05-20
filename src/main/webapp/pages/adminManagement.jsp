@@ -17,7 +17,7 @@
 <main class="content">
     <!-- Page Header Actions -->
     <div class="header-actions">
-        <a href="${pageContext.request.contextPath}/admin/new" class="btn-primary">
+        <a href="${pageContext.request.contextPath}/admin?action=create" class="btn-primary">
             <i class="icon-plus"></i> Register New Admin
         </a>
     </div>
@@ -58,10 +58,10 @@
                             </td>
                             <td>${admin.lastLoggedIn}</td>
                             <td class="actions">
-                                <a href="${pageContext.request.contextPath}/admin/edit/${admin.username}" class="btn-edit" title="Edit admin">
+                                <a href="${pageContext.request.contextPath}/admin?action=edit&username=${admin.username}" class="btn-edit" title="Edit admin">
                                     <i class="icon-edit"></i> Edit
                                 </a>
-                                <form action="${pageContext.request.contextPath}/admin/" method="post" class="inline">
+                                <form action="${pageContext.request.contextPath}/admin" method="post" class="inline">
                                     <input type="hidden" name="action" value="delete">
                                     <input type="hidden" name="username" value="${admin.username}">
                                     <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete this admin?')" title="Delete admin">
@@ -80,7 +80,7 @@
                                     </div>
                                     <h3>No admin accounts found</h3>
                                     <p>Create your first admin account to get started</p>
-                                    <a href="${pageContext.request.contextPath}/admin/new" class="btn-primary">Register Admin</a>
+                                    <a href="${pageContext.request.contextPath}/admin?action=create" class="btn-primary">Register Admin</a>
                                 </div>
                             </td>
                         </tr>
