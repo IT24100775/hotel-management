@@ -46,7 +46,7 @@ public class UpdateProfileServlet extends HttpServlet {
             return;
         }
 
-        String filePath = getServletContext().getRealPath("/WEB-INF/users.txt");
+        String filePath = getServletContext().getRealPath("/data-store/data.json");
         System.out.println("Reading file at: " + filePath);
         File file = new File(filePath);
         List<String> lines = new ArrayList<>();
