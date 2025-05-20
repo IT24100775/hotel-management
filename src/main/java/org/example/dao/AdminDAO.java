@@ -48,11 +48,14 @@ public class AdminDAO {
 
     public List<AdminUser> getAllAdmins() {
         List<AdminUser> admins = new ArrayList<>();
+        System.out.println("[DEBUG] Reading admins from: " + ADMIN_FILE);
         try (BufferedReader reader = new BufferedReader(new FileReader(ADMIN_FILE))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 try {
-                    admins.add(AdminUser.fromCsvString(line));
+                    AdminUser admin = AdminUser.fromCsvString(line);
+                    System.out.println("[DEBUG] Loaded admin: username=" + admin.getUsername() + ", password=" + admin.getPassword());
+                    admins.add(admin);
                 } catch (Exception e) {
                     // skip invalid lines
                     System.err.println("Error parsing admin from line: " + line);
@@ -80,10 +83,16 @@ public class AdminDAO {
     }
 
     public AdminUser validateCredentials(String username, String password) {
+        System.out.println("[DEBUG] Validating credentials: username='" + username + "', password='" + password + "'");
         AdminUser admin = getAdminByUsername(username);
+        if (admin != null) {
+            System.out.println("[DEBUG] Found admin: username='" + admin.getUsername() + "', password='" + admin.getPassword() + "'");
+        }
         if (admin != null && password != null && password.equals(admin.getPassword())) {
+            System.out.println("[DEBUG] Credentials match for username='" + username + "'");
             return admin;
         }
+        System.out.println("[DEBUG] Credentials do not match for username='" + username + "'");
         return null;
     }
 

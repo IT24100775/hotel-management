@@ -47,12 +47,7 @@
 </head>
 <body>
 
-<!-- JSP TEST: If you see a context path below, JSP is working -->
-<div style="background-color: yellow; padding: 10px; margin: 10px; border: 2px solid red;">
-    <p><b>JSP TEST:</b> Context Path = "<%= request.getContextPath() %>"</p>
-    <p>Current Time: <%= new java.util.Date() %></p>
-    <p>If you can see this yellow box with the context path and current time, JSP is working correctly!</p>
-</div>
+
 
 <div class="navbar">
   <div style="
@@ -66,7 +61,19 @@ text-decoration-color: white;">
       <a href="#">Rooms</a>
 
       <%
-          String username = (String) request.getSession().getAttribute("username");
+          Object adminObj = request.getSession().getAttribute("admin");
+          String username = null;
+          if (adminObj != null) {
+              // AdminUser object, get username via reflection (since class may not be imported in JSP)
+              try {
+                  java.lang.reflect.Method getUsername = adminObj.getClass().getMethod("getUsername");
+                  username = (String) getUsername.invoke(adminObj);
+              } catch (Exception e) {
+                  username = "Admin";
+              }
+          } else {
+              username = (String) request.getSession().getAttribute("username");
+          }
           if (username == null || username.isEmpty()) {
       %>
       <a href="pages/login.jsp">Login</a>
@@ -79,6 +86,7 @@ text-decoration-color: white;">
           <div class="dropdown-content">
               <a href="updateprofile-servlet">Update Profile</a>
               <a href="logout-servlet">Logout</a>
+              <a href="<%= request.getContextPath() %>/dashboard">Admin Dashboard</a>
           </div>
           </div>
       </div>
@@ -93,6 +101,7 @@ text-decoration-color: white;">
 <div class="admin-login">
     <form action="<%= request.getContextPath() %>/login" method="post">
         <h3 style="margin: 0 0 10px 0; color: #006994;">Admin Login</h3>
+        <p style="font-size:0.9em; color:#333; margin-bottom:5px;">(Admin users only. Regular users please use the Login page.)</p>
         <%
             String error = request.getParameter("error");
             if (error != null && error.equals("invalid_admin")) {

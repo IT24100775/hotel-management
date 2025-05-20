@@ -1,6 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%
+    if (session.getAttribute("admin") == null) {
+        response.sendRedirect(request.getContextPath() + "/");
+        return;
+    }
+%>
+
 <jsp:include page="../includes/header.jsp">
     <jsp:param name="pageTitle" value="Admin Management" />
     <jsp:param name="pageSubtitle" value="Manage administrator accounts and their privileges" />
