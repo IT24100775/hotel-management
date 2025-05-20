@@ -17,7 +17,7 @@ public class BookingServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // First validate user session
+
         String userId = (String) request.getSession().getAttribute("userId");
         if (userId == null) {
             response.sendRedirect("login.jsp");
