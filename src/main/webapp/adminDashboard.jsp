@@ -8,7 +8,7 @@
     }
 %>
 
-<body style="background: url('<%= request.getContextPath() %>/images/seabreeze.png') no-repeat center center fixed; background-size: cover; min-height: 100vh;">
+<body style="background: url('<%= request.getContextPath() %>/images/seabreezeadmin.png') no-repeat center center fixed; background-size: cover; min-height: 100vh;">
 <jsp:include page="includes/header.jsp" />
 
 <div class="dashboard-title">
@@ -16,7 +16,7 @@
 </div>
 
 <div class="dashboard-tiles">
-    <a href="${pageContext.request.contextPath}/admin/" class="dashboard-tile">
+    <a href="${pageContext.request.contextPath}/pages/adminManagement.jsp" class="dashboard-tile">
         <div class="tile-icon"><i class="icon-admin"></i></div>
         <div class="tile-info">
             <h3>Admin Management</h3>
