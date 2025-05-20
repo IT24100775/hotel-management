@@ -1,5 +1,6 @@
 package org.example.hotelmanagement;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,6 +11,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @WebServlet(name = "login-servlet", value = "/login-servlet")
 public class LoginServlet extends HttpServlet {
@@ -38,22 +40,29 @@ public class LoginServlet extends HttpServlet {
         }
 
         String hashedPassword = hashPassword(password);
-        String filePath = getServletContext().getRealPath("/WEB-INF/users.txt");
+        String filePath = getServletContext().getRealPath("/WEB-INF/data-store/data.json");
         File file = new File(filePath);
-        boolean loginSuccessful = false;
-        String fullname = null, email = null, phone = null;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length >= 3 && parts[0].equals(username) && parts[2].equals(hashedPassword)) {
-                    loginSuccessful = true;
-                    fullname = parts[1];
-                    email = parts.length > 3 ? parts[3] : "";
-                    phone = parts.length > 4 ? parts[4] : "";
-                    break;
+        boolean loginSuccessful = false;
+        String fullname = null;
+
+        if (file.exists()) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                List<User> users = objectMapper.readValue(reader,
+                        objectMapper.getTypeFactory().constructCollectionType(List.class, User.class));
+
+                for (User user : users) {
+                    if (user.username.equals(username) && user.password.equals(hashedPassword)) {
+                        fullname = user.fullname;
+                        loginSuccessful = true;
+                        break;
+                    }
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
+                response.sendRedirect("pages/login.jsp?error=servererror");
+                return;
             }
         }
 
@@ -62,8 +71,6 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("username", username);
             session.setAttribute("fullname", fullname);
             session.setAttribute("password", hashedPassword);
-            session.setAttribute("email", email);
-            session.setAttribute("phone", phone);
             response.sendRedirect(request.getContextPath() + "/index.jsp");
         } else {
             response.sendRedirect("pages/login.jsp?error=invalidcredentials");
