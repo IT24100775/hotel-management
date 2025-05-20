@@ -5,7 +5,8 @@
     <title>Signup</title>
     <link rel="stylesheet" href="../CSS/signup.css">
 </head>
-<body>
+<body style="background-image: url('../images/bglogin.jpg');">
+
 <form action="../signup-servlet" method="post">
     <img src="../images/logoblue.png" alt="logo" style="display: block; margin-right: 200px; margin-left: 75px;" width=150px height="auto"><br>
     <h2>Sign Up</h2>

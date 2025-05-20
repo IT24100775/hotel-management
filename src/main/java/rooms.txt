@@ -1,0 +1,3 @@
+RoomID: R001, Type: Single, Available: true
+RoomID: R002, Type: Double, Available: true
+RoomID: R003, Type: Suite, Available: true
