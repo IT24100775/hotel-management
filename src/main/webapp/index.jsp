@@ -6,21 +6,24 @@
     <link rel="stylesheet" href="<%= request.getContextPath() %>/css/index.css">
     <style>
         .admin-login {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 24px 32px;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            z-index: 10;
+            min-width: 300px;
         }
         .admin-login form {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
         .admin-login input {
-            padding: 8px;
+            padding: 10px;
             border: 1px solid #ddd;
             border-radius: 4px;
         }
@@ -28,12 +31,18 @@
             background: #006994;
             color: white;
             border: none;
-            padding: 8px;
+            padding: 10px;
             border-radius: 4px;
             cursor: pointer;
         }
         .admin-login button:hover {
             background: #005177;
+        }
+        @media (max-width: 600px) {
+            .admin-login {
+                min-width: 90vw;
+                padding: 16px 8px;
+            }
         }
         .admin-link {
             color: #006994;
@@ -76,7 +85,7 @@ text-decoration-color: white;">
           }
           if (username == null || username.isEmpty()) {
       %>
-      <a href="pages/login.jsp">Login</a>
+      <a href="index.jsp">Login</a>
       <a href="pages/signup.jsp">Sign Up</a>
       <%
       } else {
@@ -97,31 +106,23 @@ text-decoration-color: white;">
   </div>
 </div>
 
-<!-- Admin Login Section -->
-<div class="admin-login">
-    <form action="<%= request.getContextPath() %>/login" method="post">
-        <h3 style="margin: 0 0 10px 0; color: #006994;">Admin Login</h3>
-        <p style="font-size:0.9em; color:#333; margin-bottom:5px;">(Admin users only. Regular users please use the Login page.)</p>
-        <%
-            String error = request.getParameter("error");
-            if (error != null && error.equals("invalid_admin")) {
-        %>
-            <div style="color: red; font-size: 0.9em; margin-bottom: 10px;">
-                Invalid admin credentials
-            </div>
-        <%
-            }
-        %>
-        <input type="hidden" name="action" value="login">
-        <input type="text" name="username" placeholder="Admin Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Login as Admin</button>
-        <a href="<%= request.getContextPath() %>/login" class="admin-link">Admin Portal</a>
-    </form>
-</div>
-
-<div class="content1">
+<div class="content1" style="position:relative;">
   <img src="<%= request.getContextPath() %>/images/seabreeze.png" alt="Hotel Image" width=100% height="auto">
+  <div class="admin-login">
+    <form action="<%= request.getContextPath() %>/login" method="post">
+        <h3 style="margin: 0 0 10px 0; color: #006994;">Login</h3>
+        <% String error = request.getParameter("error");
+           if (error != null && error.equals("invalid_admin")) { %>
+            <div style="color: red; font-size: 0.9em; margin-bottom: 10px;">
+                Invalid credentials
+            </div>
+        <% } %>
+        <input type="hidden" name="action" value="login">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+    </form>
+  </div>
 </div>
 
 <div class="content2" style="font-family: 'Carla Sans', serif; color: #006994; line-height: 1.8; font-size:x-large;"><p><b>WELCOME TO THE SEABREEZE HOTEL!</b><br>

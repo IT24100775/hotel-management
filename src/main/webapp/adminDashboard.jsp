@@ -8,325 +8,151 @@
     }
 %>
 
-<jsp:include page="includes/header.jsp">
-    <jsp:param name="pageTitle" value="Admin Dashboard" />
-    <jsp:param name="pageSubtitle" value="Manage your hotel reservations" />
-    <jsp:param name="hideSidebar" value="true" />
-</jsp:include>
+<body style="background: url('<%= request.getContextPath() %>/images/seabreeze.png') no-repeat center center fixed; background-size: cover; min-height: 100vh;">
+<jsp:include page="includes/header.jsp" />
 
-<!-- Welcome Section -->
-<div class="welcome-section">
-    <div class="welcome-card">
-        <div class="welcome-icon">
-            <i class="icon-admin"></i>
-        </div>
-        <div class="welcome-content">
-            <h2>Welcome, ${sessionScope.admin.username}!</h2>
-            <p>Last login: ${sessionScope.admin.lastLoggedIn}</p>
-        </div>
-    </div>
+<div class="dashboard-title">
+    <h1>Admin Dashboard</h1>
 </div>
 
-<!-- Stats Overview -->
-<div class="stats-overview">
-    <h3>System Overview</h3>
-    <div class="stats-container">
-        <div class="stat-card">
-            <div class="stat-icon rooms-icon">
-                <i class="icon-room"></i>
-            </div>
-            <div class="stat-info">
-                <h3>Total Rooms</h3>
-                <p class="stat-number">${stats.roomsCount}</p>
-            </div>
+<div class="dashboard-tiles">
+    <a href="${pageContext.request.contextPath}/admin/" class="dashboard-tile">
+        <div class="tile-icon"><i class="icon-admin"></i></div>
+        <div class="tile-info">
+            <h3>Admin Management</h3>
+            <p>Manage administrator accounts</p>
         </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon users-icon">
-                <i class="icon-user"></i>
-            </div>
-            <div class="stat-info">
-                <h3>Registered Users</h3>
-                <p class="stat-number">${stats.usersCount}</p>
-            </div>
+    </a>
+    <a href="${pageContext.request.contextPath}/pages/userManagement.jsp" class="dashboard-tile">
+        <div class="tile-icon"><i class="icon-user"></i></div>
+        <div class="tile-info">
+            <h3>User Management</h3>
+            <p>Manage user accounts</p>
         </div>
-        
-        <div class="stat-card">
-            <div class="stat-icon bookings-icon">
-                <i class="icon-booking"></i>
-            </div>
-            <div class="stat-info">
-                <h3>Active Bookings</h3>
-                <p class="stat-number">${stats.bookingsCount}</p>
-            </div>
+    </a>
+    <a href="${pageContext.request.contextPath}/pages/roomManagement.jsp" class="dashboard-tile">
+        <div class="tile-icon"><i class="icon-room"></i></div>
+        <div class="tile-info">
+            <h3>Room Management</h3>
+            <p>Manage hotel rooms</p>
         </div>
-
-        <div class="stat-card">
-            <div class="stat-icon admins-icon">
-                <i class="icon-admin"></i>
-            </div>
-            <div class="stat-info">
-                <h3>Admin Accounts</h3>
-                <p class="stat-number">${stats.adminsCount}</p>
-            </div>
+    </a>
+    <a href="${pageContext.request.contextPath}/pages/bookingManagement.jsp" class="dashboard-tile">
+        <div class="tile-icon"><i class="icon-booking"></i></div>
+        <div class="tile-info">
+            <h3>Bookings</h3>
+            <p>Manage reservations</p>
         </div>
-    </div>
+    </a>
+    <a href="${pageContext.request.contextPath}/admin/logs" class="dashboard-tile">
+        <div class="tile-icon"><i class="icon-logs"></i></div>
+        <div class="tile-info">
+            <h3>Admin Logs</h3>
+            <p>View system activity logs</p>
+        </div>
+    </a>
+    <a href="${pageContext.request.contextPath}/pages/paymentsManagement.jsp" class="dashboard-tile">
+        <div class="tile-icon"><i class="icon-payment"></i></div>
+        <div class="tile-info">
+            <h3>Payments</h3>
+            <p>Manage payment transactions</p>
+        </div>
+    </a>
+    <a href="${pageContext.request.contextPath}/pages/reviewManagement.jsp" class="dashboard-tile">
+        <div class="tile-icon"><i class="icon-review"></i></div>
+        <div class="tile-info">
+            <h3>Reviews</h3>
+            <p>Manage guest reviews</p>
+        </div>
+    </a>
+    <a href="${pageContext.request.contextPath}/logout" class="dashboard-tile">
+        <div class="tile-icon"><i class="icon-logout"></i></div>
+        <div class="tile-info">
+            <h3>Logout</h3>
+            <p>End your session</p>
+        </div>
+    </a>
 </div>
 
-<!-- Admin Functions Tiles -->
-<div class="admin-functions">
-    <h3>Admin Functions</h3>
-    <div class="admin-tiles">
-        <a href="${pageContext.request.contextPath}/admin/" class="admin-tile">
-            <div class="tile-icon">
-                <i class="icon-admin"></i>
-            </div>
-            <div class="tile-info">
-                <h3>Admin Management</h3>
-                <p>Manage administrator accounts</p>
-            </div>
-        </a>
-        
-        <a href="${pageContext.request.contextPath}/pages/userManagement.jsp" class="admin-tile">
-            <div class="tile-icon">
-                <i class="icon-user"></i>
-            </div>
-            <div class="tile-info">
-                <h3>User Management</h3>
-                <p>Manage user accounts</p>
-            </div>
-        </a>
-        
-        <a href="${pageContext.request.contextPath}/pages/roomManagement.jsp" class="admin-tile">
-            <div class="tile-icon">
-                <i class="icon-room"></i>
-            </div>
-            <div class="tile-info">
-                <h3>Room Management</h3>
-                <p>Manage hotel rooms</p>
-            </div>
-        </a>
-        
-        <a href="${pageContext.request.contextPath}/pages/bookingManagement.jsp" class="admin-tile">
-            <div class="tile-icon">
-                <i class="icon-booking"></i>
-            </div>
-            <div class="tile-info">
-                <h3>Bookings</h3>
-                <p>Manage reservations</p>
-            </div>
-        </a>
-    </div>
-</div>
-
-<!-- System Management Tiles -->
-<div class="system-functions">
-    <h3>System Management</h3>
-    <div class="admin-tiles">
-        <a href="${pageContext.request.contextPath}/admin/logs" class="admin-tile">
-            <div class="tile-icon">
-                <i class="icon-logs"></i>
-            </div>
-            <div class="tile-info">
-                <h3>Admin Logs</h3>
-                <p>View system activity logs</p>
-            </div>
-        </a>
-        
-        <a href="${pageContext.request.contextPath}/pages/paymentsManagement.jsp" class="admin-tile">
-            <div class="tile-icon">
-                <i class="icon-payment"></i>
-            </div>
-            <div class="tile-info">
-                <h3>Payments</h3>
-                <p>Manage payment transactions</p>
-            </div>
-        </a>
-        
-        <a href="${pageContext.request.contextPath}/pages/reviewManagement.jsp" class="admin-tile">
-            <div class="tile-icon">
-                <i class="icon-review"></i>
-            </div>
-            <div class="tile-info">
-                <h3>Reviews</h3>
-                <p>Manage guest reviews</p>
-            </div>
-        </a>
-        
-        <a href="${pageContext.request.contextPath}/logout" class="admin-tile">
-            <div class="tile-icon">
-                <i class="icon-logout"></i>
-            </div>
-            <div class="tile-info">
-                <h3>Logout</h3>
-                <p>End your session</p>
-            </div>
-        </a>
-    </div>
-</div>
-
-<!-- Recent Activity -->
-<div class="recent-activity">
-    <h3>Recent Activity</h3>
-    <div class="activity-list">
-        <c:choose>
-            <c:when test="${not empty recentLogs}">
-                <c:forEach var="log" items="${recentLogs}" end="4">
-                    <div class="activity-item">
-                        <div class="activity-time">
-                            ${log.split(",")[0]}
-                        </div>
-                        <div class="activity-details">
-                            <strong>${log.split(",")[1]}</strong> ${log.split(",")[2]}
-                        </div>
-                    </div>
-                </c:forEach>
-                <a href="${pageContext.request.contextPath}/admin/logs" class="view-all-link">View all activity</a>
-            </c:when>
-            <c:otherwise>
-                <div class="no-activity">
-                    <p>No recent activity to display</p>
-                </div>
-            </c:otherwise>
-        </c:choose>
-    </div>
-</div>
-
-<!-- Add CSS for the new tile design -->
 <style>
-    .content.full-width {
-        margin-left: 0;
-        padding: 30px;
-    }
-    
-    .welcome-section {
-        margin-bottom: 30px;
-    }
-    
-    .welcome-card {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        display: flex;
-        align-items: center;
-        padding: 20px;
-    }
-    
-    .welcome-icon {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        background-color: #f0f7ff;
-        color: #3b82f6;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-        margin-right: 20px;
-    }
-    
-    .welcome-content h2 {
-        margin: 0 0 5px 0;
-        color: #1e293b;
-    }
-    
-    .welcome-content p {
-        margin: 0;
-        color: #64748b;
-    }
-    
-    .admin-functions,
-    .system-functions {
-        margin-bottom: 30px;
-    }
-    
-    .admin-functions h3,
-    .system-functions h3 {
-        margin-bottom: 15px;
-        color: #1e293b;
-    }
-    
-    .admin-tiles {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-    }
-    
-    .admin-tile {
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        padding: 20px;
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        color: inherit;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    
-    .admin-tile:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-    
-    .tile-icon {
-        width: 50px;
-        height: 50px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 15px;
-        font-size: 1.3rem;
-    }
-    
-    .admin-tile:nth-child(1) .tile-icon {
-        background-color: #f5f0ff;
-        color: #8b5cf6;
-    }
-    
-    .admin-tile:nth-child(2) .tile-icon {
-        background-color: #f0f7ff;
-        color: #3b82f6;
-    }
-    
-    .admin-tile:nth-child(3) .tile-icon {
-        background-color: #f0fdf4;
-        color: #10b981;
-    }
-    
-    .admin-tile:nth-child(4) .tile-icon {
-        background-color: #fff7ed;
-        color: #f59e0b;
-    }
-    
-    .system-functions .admin-tile:nth-child(1) .tile-icon {
-        background-color: #fef2f2;
-        color: #ef4444;
-    }
-    
-    .system-functions .admin-tile:nth-child(2) .tile-icon {
-        background-color: #ecfdf5;
-        color: #059669;
-    }
-    
-    .system-functions .admin-tile:nth-child(3) .tile-icon {
-        background-color: #f3f4f6;
-        color: #4b5563;
-    }
-    
-    .tile-info h3 {
-        margin: 0 0 5px 0;
-        font-size: 1.1rem;
-        color: #1e293b;
-    }
-    
-    .tile-info p {
-        margin: 0;
-        font-size: 0.9rem;
-        color: #64748b;
-    }
+body {
+    background: url('<%= request.getContextPath() %>/images/seabreeze.png') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+.dashboard-title {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.dashboard-title h1 {
+    color: #167bbf;
+    font-size: 2.5em;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-tiles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 32px;
+    margin: 40px 0 60px 0;
+}
+
+.dashboard-tile {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(22,123,191,0.10);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 340px;
+    height: 200px;
+    text-decoration: none;
+    color: #167bbf;
+    transition: transform 0.2s, box-shadow 0.2s;
+    font-size: 1.15em;
+    border: 2px solid #167bbf22;
+}
+
+.dashboard-tile:hover {
+    transform: translateY(-8px) scale(1.04);
+    box-shadow: 0 8px 32px rgba(22,123,191,0.18);
+    background: #e6f2fb;
+}
+
+.tile-icon {
+    font-size: 2.8em;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #e6f2fb;
+}
+
+.tile-info h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.25em;
+    color: #167bbf;
+    font-weight: bold;
+}
+
+.tile-info p {
+    margin: 0;
+    color: #333;
+    font-size: 1em;
+}
+
+@media (max-width: 900px) {
+    .dashboard-tile { width: 90vw; }
+    .dashboard-tiles { gap: 18px; }
+}
 </style>
 
-<jsp:include page="includes/footer.jsp" />
-
+<jsp:include page="includes/footer.jsp" /> 

@@ -23,27 +23,7 @@
     </div>
     
     <!-- Notification Component -->
-    <c:if test="${not empty error}">
-        <div class="notification error-notification">
-            <i class="icon-error"></i>
-            <div class="notification-content">
-                <h4>Error</h4>
-                <p>${error}</p>
-            </div>
-            <button class="close-notification">&times;</button>
-        </div>
-    </c:if>
-    
-    <c:if test="${not empty successMessage}">
-        <div class="notification success-notification">
-            <i class="icon-success"></i>
-            <div class="notification-content">
-                <h4>Success</h4>
-                <p>${successMessage}</p>
-            </div>
-            <button class="close-notification">&times;</button>
-        </div>
-    </c:if>
+    <!-- Removed notification blocks for success and error -->
     
     <!-- Search and Filter Component -->
     <section class="filter-section">

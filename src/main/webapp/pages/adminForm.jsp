@@ -22,18 +22,6 @@
         </a>
     </div>
     
-    <!-- Notification Component -->
-    <c:if test="${not empty error}">
-        <div class="notification error-notification">
-            <i class="icon-error"></i>
-            <div class="notification-content">
-                <h4>Error</h4>
-                <p>${error}</p>
-            </div>
-            <button class="close-notification">&times;</button>
-        </div>
-    </c:if>
-    
     <!-- Admin Form Card Component -->
     <section class="form-section">
         <div class="card">
