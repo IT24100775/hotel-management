@@ -1,6 +1,0 @@
-Shalomi |1|very badddddd
-test|5|good
-admin|3|very bad 
-admin|5|bad 
-Rozanna|5|goooooooood 
-Rozanna|5|testtt
