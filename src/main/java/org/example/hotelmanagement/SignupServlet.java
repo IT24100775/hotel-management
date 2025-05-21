@@ -68,14 +68,6 @@ public class SignupServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        if (fullname == null || username == null || password == null) {
-            System.out.println("Missing input: " + (fullname == null ? "fullname " : "")
-                    + (username == null ? "username " : "")
-                    + (password == null ? "password " : ""));
-            response.sendRedirect("pages/signup.jsp?error=missingfields");
-            return;
-        }
-
         fullname = fullname.trim();
         username = username.trim();
         password = password.trim();
@@ -133,7 +125,4 @@ public class SignupServlet extends HttpServlet {
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect(request.getContextPath() + "pages/signup.jsp");
-    }
 }

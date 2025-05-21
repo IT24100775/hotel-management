@@ -47,6 +47,7 @@ public class LoginServlet extends HttpServlet {
         String fullname = null;
 
         if (file.exists()) {
+            System.out.println("file location"+getServletContext().getRealPath("/WEB-INF/data-store/data.json"));
             ObjectMapper objectMapper = new ObjectMapper();
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 List<User> users = objectMapper.readValue(reader,
@@ -77,7 +78,4 @@ public class LoginServlet extends HttpServlet {
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        response.sendRedirect(request.getContextPath() + "pages/login.jsp");
-    }
 }

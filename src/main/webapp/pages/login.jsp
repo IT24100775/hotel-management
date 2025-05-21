@@ -11,7 +11,20 @@
     <h2>Login</h2>
      <input type="text" name="username" placeholder="Username" required /><br/><br/>
      <input type="password" name="password" placeholder="Password" required /><br/><br/>
-     <input type="submit" value="Login"/><br/><br/>
+     <input type="submit" value="Login"/><br/>
+    <%
+        String error = request.getParameter("error");
+        if ("invalidcredentials".equals(error)) {
+    %>
+    <div style="color: red; font-weight: bold; margin-top: 10px">
+        User not found! <a
+            href="<%= request.getContextPath() %>/pages/signup.jsp">Click
+        here to create an account</a>
+    </div>
+    <%
+        }
+    %>
+    <br/>
 </form>
 </body>
 </html>
