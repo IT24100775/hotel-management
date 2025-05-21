@@ -11,18 +11,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-
-
-
-import com.RoomManagement.model.Room;
-import com.RoomManagement.util.RoomFileHandler;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import java.io.IOException;
-import java.util.List;
-
     @WebServlet("/RoomServlet")
     public class RoomServlet extends HttpServlet {
         private RoomFileHandler roomFileHandler;
