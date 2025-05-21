@@ -84,7 +84,6 @@ public class SignupServlet extends HttpServlet {
         boolean userExists = false;
 
         if (file.exists()) {
-            //this location is on server that why we can't see it on the project
             System.out.println("file location: " + getServletContext().getRealPath("/WEB-INF/data-store/data.json"));
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 ObjectMapper objectMapper = new ObjectMapper();
@@ -114,7 +113,6 @@ public class SignupServlet extends HttpServlet {
                 return;
             }
 
-            // Set session attributes
             HttpSession session = request.getSession(true);
             session.setAttribute("fullname", fullname);
             session.setAttribute("username", username);

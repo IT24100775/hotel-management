@@ -1,5 +1,6 @@
 package org.example.hotelmanagement;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
@@ -34,7 +35,6 @@ public class UpdateProfileServlet extends HttpServlet {
 
         HttpSession session = request.getSession(false);
         String username = (session != null) ? (String) session.getAttribute("username") : null;
-        System.out.println("Searching for username: " + username);
 
         if (username == null) {
             response.sendRedirect("login.jsp");
@@ -46,42 +46,45 @@ public class UpdateProfileServlet extends HttpServlet {
             return;
         }
 
-        String filePath = getServletContext().getRealPath("/data-store/data.json");
-        System.out.println("Reading file at: " + filePath);
+        String filePath = getServletContext().getRealPath("/WEB-INF/data-store/data.json");
         File file = new File(filePath);
-        List<String> lines = new ArrayList<>();
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<User> users = new ArrayList<>();
         boolean updated = false;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length >= 3 && parts[0].equals(username)) {
-                    String existingFullname = parts[1];
-                    String existingHashedPassword = parts[2];
-                    String existingEmail = parts.length > 3 ? parts[3] : "";
-                    String existingPhone = parts.length > 4 ? parts[4] : "";
+        if (file.exists()) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                users = objectMapper.readValue(reader,
+                        objectMapper.getTypeFactory().constructCollectionType(List.class, User.class));
+            } catch (Exception e) {
+                e.printStackTrace();
+                response.sendRedirect("pages/updateprofile.jsp?error=readerror");
+                return;
+            }
+        }
 
-                    String hashedPassword = (newPassword != null && !newPassword.trim().isEmpty())
-                            ? hashPassword(newPassword)
-                            : existingHashedPassword;
+        for (User user : users) {
+            if (user.username.equals(username)) {
+                user.fullname = newFullname.trim();
 
-                    String updatedFullname = (newFullname != null && !newFullname.trim().isEmpty()) ? newFullname : existingFullname;
-                    String updatedEmail = (email != null && !email.trim().isEmpty()) ? email : existingEmail;
-                    String updatedPhone = (phone != null && !phone.trim().isEmpty()) ? phone : existingPhone;
-
-                    lines.add(String.join(",", username, updatedFullname, hashedPassword, updatedEmail, updatedPhone));
-
-                    // Update session values
-                    session.setAttribute("fullname", updatedFullname);
-                    session.setAttribute("password", hashedPassword);
-                    session.setAttribute("email", updatedEmail);
-                    session.setAttribute("phone", updatedPhone);
-
-                    updated = true;
-                } else {
-                    lines.add(line);
+                if (newPassword != null && !newPassword.trim().isEmpty()) {
+                    user.password = hashPassword(newPassword.trim());
+                    session.setAttribute("password", user.password);
                 }
+
+                if (email != null && !email.trim().isEmpty()) {
+                    user.email = email.trim();
+                    session.setAttribute("email", user.email);
+                }
+
+                if (phone != null && !phone.trim().isEmpty()) {
+                    user.phone = phone.trim();
+                    session.setAttribute("phone", user.phone);
+                }
+
+                session.setAttribute("fullname", user.fullname);
+                updated = true;
+                break;
             }
         }
 
@@ -90,12 +93,14 @@ public class UpdateProfileServlet extends HttpServlet {
             return;
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
-            for (String l : lines) {
-                writer.write(l);
-                writer.newLine();
-            }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            objectMapper.writeValue(writer, users);
+        } catch (IOException e) {
+            e.printStackTrace();
+            response.sendRedirect("pages/updateprofile.jsp?error=writeerror");
+            return;
         }
 
         response.sendRedirect("pages/viewprofile.jsp?success=updated");
-    }}
+    }
+}
