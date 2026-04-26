@@ -1,3 +1,5 @@
+The frontend was deployed using Vercel and the backend using Render. Environment variables such as MONGODB_URI and VITE_API_URL were configured in the deployment platforms. The frontend communicates with the backend using the deployed API URL, and CORS was configured to allow requests from the frontend domain. The project was pushed to GitHub and connected to the deployment platforms for hosting.
+
 # Hotel Reservation System - Admin Module
 
 This module handles administrative user management for the Hotel Reservation System (HRS).
